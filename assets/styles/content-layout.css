@@ -1,0 +1,330 @@
+/* Content slides 02–07 only. The intro and global chrome are deliberately untouched.
+ * A positioned inset is not a height constraint on a relative element. Keep the
+ * content roots absolute, with a definite border-box size for their grid tracks.
+ */
+.slide.vision-slide,
+.slide.domains-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  padding: clamp(12px, 2vh, 24px) clamp(16px, 2.3vw, 44px) 10px;
+  gap: clamp(8px, 1.3vh, 14px);
+}
+:is(.vision-slide, .domains-slide)
+  :is(
+    .vision-workspace,
+    .domains-workspace,
+    .center-workspace,
+    .intel-workspace,
+    .response-workspace
+  ) {
+  min-width: 0;
+  min-height: 0;
+  align-items: stretch;
+  overflow: hidden;
+  gap: clamp(12px, 1.5vw, 26px);
+}
+:is(.vision-slide, .domains-slide)
+  :is(.vision-scene-card, .domain-stage, .center-stage, .intel-stage, .response-stage, .gov-stage) {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+}
+:is(.vision-slide, .domains-slide)
+  :is(.vision-viewport, .domain-viewport, .center-viewport, .intel-viewport) {
+  contain: size layout;
+  min-width: 0;
+  min-height: 0;
+}
+:is(.vision-slide, .domains-slide) :is(.vision-narrative, .domain-console) {
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+}
+.domains-slide .domain-console {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.domains-slide .domain-console-head {
+  min-height: 38px;
+  padding: 10px 16px;
+  flex-wrap: wrap;
+}
+.domains-slide .domain-console-body,
+.vision-slide .vision-narrative {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  padding: clamp(14px, 1.3vw, 22px);
+}
+.domains-slide .domain-console-footer {
+  min-height: 0;
+  max-height: 44vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding: 12px 16px 16px;
+}
+:is(.vision-slide, .domains-slide) :is(.domain-console-body, .vision-narrative) h2 {
+  font-size: clamp(23px, 1.65vw, 31px);
+  overflow-wrap: anywhere;
+}
+:is(.vision-slide, .domains-slide) :is(.domain-console-body, .vision-narrative) p {
+  font-size: clamp(12px, 0.85vw, 15px);
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+:is(.vision-slide, .domains-slide) :is(.domain-primary, .vision-primary, .approve-button) {
+  min-height: 40px;
+  white-space: normal;
+  line-height: 1.45;
+  font-size: clamp(11px, 0.8vw, 14px);
+}
+:is(.vision-slide, .domains-slide) :is(.domain-action-hint, .vision-action-bar > span) {
+  font-size: clamp(10px, 0.72vw, 12px);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+:is(.vision-slide, .domains-slide) :is(.vision-heading, .domains-heading) {
+  min-width: 0;
+  gap: 16px;
+}
+:is(.vision-slide, .domains-slide) :is(.vision-heading, .domains-heading) h1 {
+  font-size: clamp(26px, 2.1vw, 39px);
+  line-height: 1.22;
+}
+:is(.vision-slide, .domains-slide)
+  :is(.vision-navigation, .domains-navigation, .center-navigation) {
+  min-width: 0;
+  gap: 10px;
+}
+.domains-slide .center-tabs {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.domains-slide .center-tabs > button {
+  min-width: 0;
+  min-height: 42px;
+  padding: 9px 12px;
+  gap: 8px;
+}
+.domains-slide .center-tabs > button b {
+  font-size: clamp(11px, 0.8vw, 14px);
+  line-height: 1.5;
+}
+.domains-slide .center-tabs .ui-icon {
+  flex-shrink: 0;
+}
+:is(.vision-slide, .domains-slide) :is(button, [tabindex]):focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: -2px;
+}
+/* Scroll tracks are visible in Chromium and Firefox, in both themes. */
+:is(.vision-slide, .domains-slide) [data-content-scroll] {
+  scrollbar-width: auto;
+  scrollbar-color: #c7aa72 #54718225;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+:is(.vision-slide, .domains-slide) [data-content-scroll]::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+:is(.vision-slide, .domains-slide) [data-content-scroll]::-webkit-scrollbar-track {
+  background: #54718225;
+  border-radius: 8px;
+}
+:is(.vision-slide, .domains-slide) [data-content-scroll]::-webkit-scrollbar-thumb {
+  background: #b59b67;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 8px;
+  min-height: 32px;
+}
+:is(.vision-slide, .domains-slide) [data-content-scroll]::-webkit-scrollbar-thumb:hover {
+  background-color: #e2c386;
+}
+html[data-theme="light"] :is(.vision-slide, .domains-slide) [data-content-scroll] {
+  scrollbar-color: #96733d #64859925;
+}
+html[data-theme="light"]
+  :is(.vision-slide, .domains-slide)
+  [data-content-scroll]::-webkit-scrollbar-thumb {
+  background-color: #96733d;
+}
+/* Keep dock text reachable rather than masking long Arabic labels. */
+.vision-slide .vision-scene-dock,
+.domains-slide :is(.center-chain, .intel-reasoning-dock, .gov-control) {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.vision-slide .vision-action-bar {
+  overflow: auto;
+}
+.vision-slide .vision-action-bar > span {
+  min-width: 0;
+}
+.vision-slide .vision-action-bar > button {
+  max-width: 60%;
+  flex-shrink: 1;
+}
+/* Compact windows use one shared workspace scroller. Photo height depends only
+ * on viewport dimensions, never on a tab's narrative or footer content. */
+:is(.vision-slide, .domains-slide).content-flow
+  :is(
+    .vision-workspace,
+    .domains-workspace,
+    .center-workspace,
+    .intel-workspace,
+    .response-workspace
+  ) {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr);
+  grid-template-rows: auto;
+  align-items: start;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  padding-inline-end: 5px;
+  padding-bottom: 10px;
+}
+:is(.vision-slide, .domains-slide).content-flow
+  :is(.vision-scene-card, .domain-stage, .center-stage, .intel-stage, .response-stage, .gov-stage) {
+  height: clamp(330px, 64vh, 520px);
+  min-height: 330px;
+  max-height: none;
+}
+:is(.vision-slide, .domains-slide).content-flow :is(.vision-narrative, .domain-console) {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
+.domains-slide.content-flow .domain-console {
+  grid-template-rows: auto auto auto;
+}
+.domains-slide.content-flow .domain-console-body,
+.domains-slide.content-flow .domain-console-footer {
+  max-height: none;
+  overflow: visible;
+}
+:is(.vision-slide, .domains-slide).content-stacked
+  :is(
+    .vision-workspace,
+    .domains-workspace,
+    .center-workspace,
+    .intel-workspace,
+    .response-workspace
+  ) {
+  grid-template-columns: minmax(0, 1fr);
+}
+:is(.vision-slide, .domains-slide).content-stacked
+  :is(.vision-scene-card, .domain-stage, .center-stage, .intel-stage, .response-stage, .gov-stage) {
+  height: clamp(380px, 72vh, 620px);
+}
+/* Override old mobile auto/aspect rows so every scene retains the same bounds. */
+.vision-slide.content-flow .vision-scene-card {
+  grid-template-rows: minmax(0, 1fr) 60px 68px;
+}
+.domains-slide.content-flow .domain-stage {
+  grid-template-rows: minmax(0, 1fr) 76px;
+}
+.domains-slide.content-flow .center-stage {
+  grid-template-rows: minmax(0, 1fr) 136px;
+}
+.domains-slide.content-flow .intel-stage {
+  grid-template-rows: minmax(0, 1fr) 174px;
+}
+.domains-slide.content-flow .response-stage {
+  grid-template-rows: minmax(0, 1fr) 210px;
+}
+.domains-slide.content-flow .gov-stage {
+  grid-template-rows: minmax(0, 1fr) 188px;
+}
+:is(.vision-slide, .domains-slide).content-flow
+  :is(.vision-viewport, .domain-viewport, .center-viewport, .intel-viewport) {
+  height: auto;
+  aspect-ratio: auto;
+  min-height: 0;
+  contain: size layout;
+}
+/* Expanded views keep their own scroll area and their exit control reachable. */
+.vision-slide.is-expanded .vision-workspace {
+  display: block;
+  overflow: auto;
+}
+.vision-slide.is-expanded .vision-scene-card {
+  height: 100%;
+  min-height: 310px;
+}
+.domains-slide.is-map-expanded .domain-console {
+  height: auto;
+  max-height: none;
+  overflow: hidden;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.domains-slide.is-map-expanded .domain-console-body {
+  overflow-y: scroll;
+}
+@media (max-width: 820px) {
+  :is(.vision-slide, .domains-slide) :is(.vision-heading, .domains-heading) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
+  :is(.vision-slide, .domains-slide) :is(.vision-heading, .domains-heading) > p {
+    max-width: none;
+    font-size: 11px;
+  }
+  :is(.vision-slide, .domains-slide) :is(.vision-heading, .domains-heading) h1 {
+    font-size: 25px;
+  }
+  .domains-slide .center-tabs > button {
+    padding: 8px 6px;
+    gap: 5px;
+  }
+  .domains-slide .center-tabs > button > span {
+    display: none;
+  }
+  :is(.vision-slide, .domains-slide) :is(.vision-footer, .domains-footer) {
+    display: none;
+  }
+  .slide.vision-slide,
+  .slide.domains-slide {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+}
+@media (max-height: 480px) {
+  .slide.vision-slide,
+  .slide.domains-slide {
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  :is(.vision-slide, .domains-slide)
+    :is(.vision-navigation, .domains-navigation, .center-navigation) {
+    margin: 12px 0;
+  }
+  :is(.vision-slide, .domains-slide) :is(.vision-footer, .domains-footer) {
+    display: none;
+  }
+  :is(.vision-slide, .domains-slide).content-flow
+    :is(
+      .vision-workspace,
+      .domains-workspace,
+      .center-workspace,
+      .intel-workspace,
+      .response-workspace
+    ) {
+    overflow: visible;
+  }
+}

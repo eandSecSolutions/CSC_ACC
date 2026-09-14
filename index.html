@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-motion="full" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#081629" />
+    <meta
+      name="description"
+      content="UAE Autonomous Command Center. An executive proposal by e& and the UAE Cyber Security Council."
+    />
+    <title>UAE Autonomous Command Center</title>
+    <link rel="icon" href="assets/brand/eand.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles/base.css" />
+    <link rel="stylesheet" href="assets/styles/shell.css" />
+    <link rel="stylesheet" href="assets/styles/loading.css" />
+    <link rel="stylesheet" href="assets/styles/slides/01-intro.css" />
+    <link rel="stylesheet" href="assets/styles/slides/placeholders.css" />
+    <link rel="stylesheet" href="assets/styles/slides/02-vision.css" />
+    <link rel="stylesheet" href="assets/styles/slides/03-domains.css" />
+    <link rel="stylesheet" href="assets/styles/slides/04-command-center.css" />
+    <link rel="stylesheet" href="assets/styles/slides/05-intelligence.css" />
+    <link rel="stylesheet" href="assets/styles/slides/06-response.css" />
+    <link rel="stylesheet" href="assets/styles/slides/07-governance.css" />
+    <link rel="stylesheet" href="assets/styles/content-layout.css" />
+    <link rel="stylesheet" href="assets/styles/slides/08-value.css" />
+    <link rel="stylesheet" href="assets/styles/slides/09-roadmap.css" />
+  </head>
+  <body>
+    <div id="loader" class="loader" role="status" aria-live="polite">
+      <div class="loader-art" aria-hidden="true">
+        <img id="loaderImage" src="assets/images/loading/command-hall.webp" alt="" />
+        <div class="loader-aura"></div>
+        <div class="loader-scan"></div>
+      </div>
+      <div class="loader-vignette" aria-hidden="true"></div>
+      <div class="loader-panel">
+        <p class="eyebrow">UNITED ARAB EMIRATES</p>
+        <h2 id="loadText">Autonomous Command Center</h2>
+        <div class="loader-meter">
+          <div class="load-track"><i id="loadBar"></i></div>
+          <span id="loadPercent">0%</span>
+        </div>
+        <p class="loader-detail" id="loadDetail">Preparing the experience</p>
+      </div>
+    </div>
+    <div id="app" class="app" inert>
+      <header class="topbar" dir="ltr">
+        <button id="home" class="partners" aria-label="Return to cover" title="Return to cover">
+          <img class="eand-logo" src="assets/brand/eand-mark.svg" alt="e&" />
+          <span class="brand-divider"></span>
+          <span id="cscBrand" class="csc-brand">
+            <img
+              class="csc-logo"
+              src="assets/brand/csc-transparent.png"
+              alt="UAE Cyber Security Council"
+            />
+          </span>
+        </button>
+        <nav id="sections" class="sections" aria-label="Presentation sections"></nav>
+        <div class="tools" dir="ltr">
+          <button
+            id="outlineButton"
+            class="icon-button"
+            aria-label="Presentation contents"
+            title="Presentation contents"
+          >
+            <span class="grid-icon" aria-hidden="true">
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect width="7" height="7" x="3" y="3" rx="1" />
+                <rect width="7" height="7" x="14" y="3" rx="1" />
+                <rect width="7" height="7" x="14" y="14" rx="1" />
+                <rect width="7" height="7" x="3" y="14" rx="1" />
+              </svg>
+            </span>
+          </button>
+          <button id="language" class="language" lang="ar" title="العربية">العربية</button>
+          <button
+            id="themeButton"
+            class="icon-button theme-button"
+            aria-label="Switch to light mode"
+            title="Switch to light mode"
+          >
+            <span aria-hidden="true">
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2" />
+                <path d="M12 20v2" />
+                <path d="m4.93 4.93 1.41 1.41" />
+                <path d="m17.66 17.66 1.41 1.41" />
+                <path d="M2 12h2" />
+                <path d="M20 12h2" />
+                <path d="m6.34 17.66-1.41 1.41" />
+                <path d="m19.07 4.93-1.41 1.41" />
+              </svg>
+            </span>
+          </button>
+          <button
+            id="settingsButton"
+            class="icon-button"
+            aria-label="Presentation settings"
+            title="Presentation settings"
+          >
+            <span aria-hidden="true">
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M14 17H5" />
+                <path d="M19 7h-9" />
+                <circle cx="17" cy="17" r="3" />
+                <circle cx="7" cy="7" r="3" />
+              </svg>
+            </span>
+          </button>
+          <button
+            id="fullscreen"
+            class="icon-button fullscreen"
+            aria-label="Enter fullscreen"
+            title="Enter fullscreen"
+          >
+            <span aria-hidden="true">
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+                <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+                <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+                <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </header>
+      <main id="stage" class="stage" tabindex="-1" aria-label="Presentation canvas"></main>
+      <div class="slide-edge-nav" aria-label="Slide navigation" dir="ltr">
+        <button id="previous" class="edge-nav-button edge-nav-previous" aria-label="Previous slide" title="Previous slide">
+          <span class="arrow previous-arrow" aria-hidden="true">
+            <svg
+              class="ui-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.85"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+          </span>
+        </button>
+        <button id="next" class="edge-nav-button edge-nav-next" aria-label="Next slide" title="Next slide">
+          <span class="arrow next-arrow" aria-hidden="true">
+            <svg
+              class="ui-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.85"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <footer class="footer" dir="ltr">
+        <div class="footer-context"><span id="footerLabel" dir="auto"></span></div>
+        <div id="dots" class="slide-dots" aria-label="Choose slide"></div>
+        <div class="paging counter-only">
+          <span id="counter" class="counter" dir="ltr">
+            01
+            <i>/ 10</i>
+          </span>
+        </div>
+      </footer>
+      <div class="progress-track"><i id="deckProgress"></i></div>
+    </div>
+    <dialog id="outline" class="modal">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow" data-i18n="proposal">EXECUTIVE PROPOSAL</p>
+          <h2 data-i18n="contents">Explore the presentation</h2>
+        </div>
+        <button class="icon-button close-dialog" aria-label="Close">
+          <svg
+            class="ui-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div id="outlineItems" class="outline-items"></div>
+      <p class="modal-foot" data-i18n="outlineNote">
+        The first nine slides are ready. The demo chapter is reserved for the next build.
+      </p>
+    </dialog>
+    <dialog id="settings" class="modal settings-modal">
+      <div class="modal-head">
+        <h2 data-i18n="settings">Presentation settings</h2>
+        <button class="icon-button close-dialog" aria-label="Close">
+          <svg
+            class="ui-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.65"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="settings-body">
+        <h3 data-i18n="motion">Motion</h3>
+        <div id="motionOptions" class="option-group"></div>
+        <p class="muted" data-i18n="motionHint">
+          Follow system preferences, enjoy full motion, or use a calmer presentation. All content
+          remains accessible.
+        </p>
+        <h3 data-i18n="keyboard">Keyboard controls</h3>
+        <dl class="shortcuts">
+          <div>
+            <dt>
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="m12 19-7-7 7-7" />
+                <path d="M19 12H5" />
+              </svg>
+              <svg
+                class="ui-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.65"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </dt>
+            <dd data-i18n="navHelp">Previous / next slide (reversed in Arabic)</dd>
+          </div>
+          <div>
+            <dt>Home / End</dt>
+            <dd data-i18n="endsHelp">First / last slide</dd>
+          </div>
+          <div>
+            <dt>Esc</dt>
+            <dd data-i18n="escapeHelp">Close an overlay or exit fullscreen</dd>
+          </div>
+          <div>
+            <dt>F</dt>
+            <dd data-i18n="fullHelp">Toggle fullscreen</dd>
+          </div>
+        </dl>
+        <p class="muted" data-i18n="conceptNote">
+          Concept imagery illustrates a proposed future facility.
+        </p>
+      </div>
+    </dialog>
+    <div id="toast" class="toast" role="status"></div>
+    <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <noscript>
+      <div class="no-script">Please enable JavaScript to open this presentation.</div>
+    </noscript>
+    <script src="assets/config/deck.js"></script>
+    <script src="assets/config/media.js"></script>
+    <script src="assets/config/interface.js"></script>
+    <script src="assets/config/slides/01-intro.js"></script>
+    <script src="assets/config/slides/02-vision.js"></script>
+    <script src="assets/config/slides/03-domains.js"></script>
+    <script src="assets/config/slides/04-command-center.js"></script>
+    <script src="assets/config/slides/05-intelligence.js"></script>
+    <script src="assets/config/slides/06-response.js"></script>
+    <script src="assets/config/slides/07-governance.js"></script>
+    <script src="assets/config/slides/08-value.js"></script>
+    <script src="assets/config/slides/09-roadmap.js"></script>
+    <script src="assets/config/slides/10-demo.js"></script>
+    <script src="assets/scripts/core/icons.js"></script>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/vendor/drone-engine.min.js"></script>
+    <script src="assets/scripts/scenes/intro-harbour.js"></script>
+    <script src="assets/scripts/core/scene-scope.js"></script>
+    <script src="assets/scripts/slides/01-intro.js"></script>
+    <script src="assets/scripts/scenes/vision-atmosphere.js"></script>
+    <script src="assets/scripts/slides/02-vision.js"></script>
+    <script src="assets/scripts/scenes/domains-atmosphere.js"></script>
+    <script src="assets/scripts/slides/03-domains.js"></script>
+    <script src="assets/scripts/slides/04-command-center.js"></script>
+    <script src="assets/scripts/slides/05-intelligence.js"></script>
+    <script src="assets/scripts/slides/06-response.js"></script>
+    <script src="assets/scripts/slides/07-governance.js"></script>
+    <script src="assets/scripts/slides/08-value.js"></script>
+    <script src="assets/scripts/slides/09-roadmap.js"></script>
+    <script src="assets/scripts/slides/placeholder.js"></script>
+    <script src="assets/scripts/core/content-layout.js"></script>
+    <script src="assets/scripts/core/app.js"></script>
+  </body>
+</html>
