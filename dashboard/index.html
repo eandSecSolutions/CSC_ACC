@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Interactive UAE autonomous-mobility command center concept with role-based operational views, bilingual controls and simulated data.">
+  <meta name="application-version" content="0.2.9">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23071118'/%3E%3Cpath d='M16 4 27 8v8c0 7-5 10-11 13C10 26 5 23 5 16V8z' fill='%23ee263f'/%3E%3Cpath d='m10 16 4 4 8-9' fill='none' stroke='white' stroke-width='2.5'/%3E%3C/svg%3E">
+  <title>UAE Autonomous Command Center — Demo</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/dark/main.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/v0.1.7.css">
+  <link rel="stylesheet" href="assets/css/v0.1.8.css">
+  <link rel="stylesheet" href="assets/css/v0.1.9.css">
+  <link rel="stylesheet" href="assets/css/v0.2.0.css">
+  <link rel="stylesheet" href="assets/css/v0.2.1.css">
+  <link rel="stylesheet" href="assets/css/v0.2.2.css">
+  <link rel="stylesheet" href="assets/css/v0.2.3.css">
+  <link rel="stylesheet" href="assets/css/v0.2.4.css">
+  <link rel="stylesheet" href="assets/css/v0.2.5.css">
+  <link rel="stylesheet" href="assets/css/v0.2.6.css">
+  <link rel="stylesheet" href="assets/css/v0.2.7.css">
+  <link rel="stylesheet" href="assets/css/v0.2.8.css">
+  <link rel="stylesheet" href="assets/css/v0.2.9.css">
+  <script src="https://js.arcgis.com/4.33/"></script>
+</head>
+<body data-theme="dark">
+  <svg class="svg-defs" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-drone" viewBox="0 0 24 24"><path d="M9 10h6l2 4H7zM12 10V7M9 7h6M6 8H3m18 0h-3M6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm16 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM7 14l-2 3m12-3 2 3"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="12" rx="3"/><path d="M12 7V4m-4 15v2m8-2v2M5 12H3m18 0h-2"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M9 16h6"/></symbol>
+    <symbol id="i-ship" viewBox="0 0 24 24"><path d="M3 15 5 9h14l2 6-9 5zM8 9V5h8v4M4 21c2 1 4 1 6 0 2 1 4 1 6 0 2 1 4 1 5 0"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="m5 11 2-5h10l2 5 2 2v5h-3m-12 0H3v-5zM6 13h12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><path d="M9.5 4.5A3 3 0 0 0 5 7a3.2 3.2 0 0 0-1 6 3.5 3.5 0 0 0 5.5 4.5V4.5Zm5 0A3 3 0 0 1 19 7a3.2 3.2 0 0 1 1 6 3.5 3.5 0 0 1-5.5 4.5V4.5ZM9.5 9H7m2.5 4H6m8.5-4H17m-2.5 4H18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20z"/><path d="M12 9v5m0 3h.01"/></symbol>
+    <symbol id="i-fleet" viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="7" rx="1"/><rect x="13" y="4" width="8" height="7" rx="1"/><rect x="8" y="13" width="8" height="7" rx="1"/></symbol>
+    <symbol id="i-twin" viewBox="0 0 24 24"><path d="m12 2 8 4-8 4-8-4zM4 10l8 4 8-4M4 14l8 4 8-4M4 18l8 4 8-4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10m5 10V4m6 16v-7m5 7V7"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6z"/><path d="m9 12 2 2 4-5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></symbol>
+    <symbol id="i-report" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5zM15 3v5h5M8 12h8m-8 4h8"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1A8 8 0 0 0 15 6l-.3-2.6h-4L10.4 6A8 8 0 0 0 8.8 7.1l-2.4-1-2 3.4 2 1.5a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.4-1A8 8 0 0 0 10.4 18l.3 2.6h4L15 18a8 8 0 0 0 1.6-1.1l2.4 1 2-3.4-2-1.5a7 7 0 0 0 .1-1Z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0m0-5a5 5 0 0 1 6 5"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15a8 8 0 0 1-11-11 9 9 0 1 0 11 11Z"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M8 21H3v-5m13 5h5v-5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><path d="M5 17h.01M9 14h.01M13 11h.01M17 8h.01M21 5h.01"/><path d="M4 20 20 4"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h3a3 3 0 0 0 3-3v-6a3 3 0 0 1 3-3"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24"><rect x="4" y="5" width="15" height="14" rx="2"/><path d="M19 9h2v6h-2M8 9v6m4-6v6m4-6v6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14m8-14v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 4v6h6M4.5 10a8 8 0 1 1 2 8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 7-2"/></symbol>
+    <symbol id="i-audit" viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 7h6m-6 4h6m-6 4h3"/><path d="m15 16 1.5 1.5L20 14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+    <symbol id="i-rotate-left" viewBox="0 0 24 24"><path d="M4 4v6h6M5 9a8 8 0 1 1-1 7"/></symbol>
+    <symbol id="i-rotate-right" viewBox="0 0 24 24"><path d="M20 4v6h-6m5-1a8 8 0 1 0 1 7"/></symbol>
+    <symbol id="i-tilt" viewBox="0 0 24 24"><path d="M4 16 12 5l8 11M7 16h10M9 20h6"/></symbol>
+  </svg>
+
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-logos">
+          <img src="assets/brand/eand.svg" alt="e&">
+          <span></span>
+          <img class="csc-logo" src="assets/brand/csc-transparent.png" alt="CSC">
+        </div>
+        <div class="brand-copy">
+          <h1 data-i18n="appTitle">UAE Autonomous Command Center</h1>
+          <p data-i18n="appSubtitle">AI-powered command, monitoring and control for autonomous mobility</p>
+        </div>
+      </div>
+      <div class="time-block" aria-live="polite">
+        <span id="dateLabel">14 Sep 2026</span>
+        <strong id="clockLabel">08:00:00</strong>
+        <small>GST (UTC+4)</small>
+      </div>
+      <div id="healthStrip" class="health-strip"></div>
+      <div class="top-actions">
+        <button id="themeBtn" class="icon-button utility-button" type="button" aria-label="Toggle theme"><svg><use href="#i-sun"/></svg></button>
+        <button id="langBtn" class="language-button" type="button" aria-label="Switch language">عربي</button>
+        <div id="fontSizeControl" class="font-size-control" role="group" data-i18n-aria-label="fontSize" aria-label="Text size">
+          <button type="button" data-font-size="small" data-i18n-title="fontSmall" title="Small text" aria-pressed="false"><span>A</span></button>
+          <button type="button" data-font-size="medium" data-i18n-title="fontMedium" title="Medium text" aria-pressed="false"><span>A</span></button>
+          <button type="button" data-font-size="large" data-i18n-title="fontLarge" title="Large text" aria-pressed="true"><span>A</span></button>
+        </div>
+        <button id="notificationBtn" class="icon-button notification-button" type="button" data-tooltip="Notifications"><svg><use href="#i-bell"/></svg><b id="notificationCount">5</b></button>
+        <button id="userButton" class="user-button" type="button" aria-expanded="false">
+          <span id="userAvatar" class="user-avatar">AM</span>
+          <span class="user-copy"><b id="userName">Dr. Aisha Al Mansoori</b><small id="userRole">National Commander</small></span>
+          <svg><use href="#i-chevron"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <nav id="moduleNav" class="module-nav" aria-label="Command center modules"></nav>
+
+    <main id="commandCenterPage" class="dashboard-main module-page">
+      <section id="scopeBar" class="scope-bar" aria-live="polite"></section>
+      <section id="kpiStrip" class="kpi-strip"></section>
+
+      <section class="operations-grid">
+        <aside class="left-column">
+          <section class="panel incident-panel">
+            <div class="panel-heading"><div><span class="eyebrow" data-i18n="operationalQueue">Operational queue</span><h2 data-i18n="liveIncidents">Live incidents</h2></div><button class="text-action" data-action="all-incidents" type="button" data-i18n="viewAll">View all</button></div>
+            <div id="incidentList" class="incident-list"></div>
+          </section>
+          <section class="panel ai-alert-panel">
+            <div class="panel-heading"><div><span class="eyebrow" data-i18n="machineAssessment">Machine assessment</span><h2 data-i18n="recentAiAlerts">Recent AI alerts</h2></div><span class="live-pill"><i></i><span data-i18n="live">Live</span></span></div>
+            <div id="aiAlertList" class="ai-alert-list"></div>
+          </section>
+        </aside>
+
+        <template id="commandMapHome"></template>
+        <section id="mapPanel" class="panel map-panel">
+          <div class="map-heading">
+            <div class="map-title"><span class="uae-flag"><i></i><i></i><i></i><i></i></span><div><span class="eyebrow" data-i18n="nationalPicture">National operating picture</span><h2 data-i18n="uaeOperationalMap">UAE Operational Map</h2></div><span id="mapEngineBadge" class="map-engine-badge loading"><i></i><b data-i18n="mapConnecting">CONNECTING 3D</b></span></div>
+            <div class="map-search"><svg><use href="#i-search"/></svg><input id="mapSearch" type="search" autocomplete="off" data-i18n-placeholder="searchMap" placeholder="Search asset, incident or location"></div>
+            <div id="mapModes" class="map-modes"></div>
+          </div>
+          <div id="mapViewport" class="map-viewport" data-map-mode="tactical">
+            <div id="arcgisMap" class="arcgis-map" aria-label="Interactive UAE 3D operational map"></div>
+            <div id="mapPlane" class="map-plane">
+              <div class="offline-map-art" aria-hidden="true">
+                <svg id="localVectorMap" class="local-vector-map" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="localLand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#203f3c"/><stop offset=".58" stop-color="#183735"/><stop offset="1" stop-color="#112b31"/></linearGradient>
+                    <linearGradient id="localSea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061b29"/><stop offset="1" stop-color="#0b3442"/></linearGradient>
+                    <pattern id="localGrid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#55dcec" stroke-opacity=".07"/></pattern>
+                    <pattern id="localAerialTexture" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(28)"><path d="M0 18h36M18 0v36" stroke="#c9a766" stroke-opacity=".08"/><circle cx="8" cy="9" r="4" fill="#345947" fill-opacity=".16"/></pattern>
+                    <filter id="localGlow"><feGaussianBlur stdDeviation="4"/></filter>
+                    <filter id="roadGlow"><feGaussianBlur stdDeviation="1.2"/></filter>
+                  </defs>
+                  <rect class="local-sea" width="100%" height="100%" fill="url(#localSea)"/>
+                  <rect class="local-grid" width="100%" height="100%" fill="url(#localGrid)"/>
+                  <g id="localMapBase"></g>
+                </svg>
+                <div class="offline-water-grid"></div>
+                <div class="map-scan-beam"></div>
+              </div>
+              <div id="tileLayer" class="tile-layer" aria-hidden="true"></div>
+              <div class="map-tone"></div>
+              <div id="buildingLayer" class="building-layer"></div>
+              <svg id="routeLayer" class="route-layer" aria-hidden="true"></svg>
+              <div id="zoneLayer" class="zone-layer"></div>
+              <div id="markerLayer" class="marker-layer"></div>
+            </div>
+            <div id="mapLoadMonitor" class="map-load-monitor"><i></i><span data-i18n="mapConnecting">Connecting 3D services</span></div>
+            <div id="mapPlacePresets" class="map-place-presets" aria-label="Map location presets">
+              <button type="button" data-map-place="uae" data-i18n="uaeOverview">UAE</button>
+              <button type="button" data-map-place="abudhabi" data-i18n="abuDhabi">Abu Dhabi</button>
+              <button type="button" data-map-place="yas" data-i18n="yasIsland">Yas Island</button>
+              <button type="button" data-map-place="dubai" data-i18n="dubai">Dubai</button>
+            </div>
+            <div id="mapLayerPanel" class="map-layer-panel"></div>
+            <div class="map-controls">
+              <button type="button" data-map-control="zoom-in" aria-label="Zoom in"><svg><use href="#i-plus"/></svg></button>
+              <button type="button" data-map-control="zoom-out" aria-label="Zoom out"><svg><use href="#i-minus"/></svg></button>
+              <button type="button" data-map-control="fit" aria-label="Fit UAE"><svg><use href="#i-target"/></svg></button>
+              <button type="button" data-map-control="layers" aria-label="Layers"><svg><use href="#i-layers"/></svg></button>
+            </div>
+            <button id="expandMapBtn" class="expand-map map-fullscreen-button" type="button" aria-label="Open map full screen"><svg><use href="#i-expand"/></svg><span data-i18n="enterFullscreen">Full screen</span></button>
+            <div id="mapCameraControls" class="map-camera-controls" aria-label="3D map camera controls">
+              <button type="button" data-map-camera="rotate-left" data-i18n-title="rotateLeft" title="Rotate left"><svg><use href="#i-rotate-left"/></svg></button>
+              <button type="button" class="camera-pan pan-up" data-map-camera="pan-up" data-i18n-title="panUp" title="Pan north"><svg><use href="#i-chevron"/></svg></button>
+              <button type="button" data-map-camera="rotate-right" data-i18n-title="rotateRight" title="Rotate right"><svg><use href="#i-rotate-right"/></svg></button>
+              <button type="button" class="camera-pan pan-left" data-map-camera="pan-left" data-i18n-title="panLeft" title="Pan west"><svg><use href="#i-chevron"/></svg></button>
+              <button type="button" class="camera-north" data-map-camera="north" data-i18n-title="resetNorth" title="Reset north"><span>N</span></button>
+              <button type="button" class="camera-pan pan-right" data-map-camera="pan-right" data-i18n-title="panRight" title="Pan east"><svg><use href="#i-chevron"/></svg></button>
+              <button type="button" data-map-camera="tilt-down" data-i18n-title="tiltDown" title="Reduce tilt"><svg><use href="#i-tilt"/></svg><b>−</b></button>
+              <button type="button" class="camera-pan pan-down" data-map-camera="pan-down" data-i18n-title="panDown" title="Pan south"><svg><use href="#i-chevron"/></svg></button>
+              <button type="button" data-map-camera="tilt-up" data-i18n-title="tiltUp" title="Increase tilt"><svg><use href="#i-tilt"/></svg><b>+</b></button>
+              <button type="button" class="camera-wide" data-map-camera="top-down" data-i18n-title="topDown" title="Top-down view"><span data-i18n="topDown">TOP</span></button>
+              <button type="button" class="camera-wide" data-map-camera="oblique" data-i18n-title="oblique" title="Oblique view"><span data-i18n="oblique">3D</span></button>
+              <button type="button" class="camera-wide orbit-control" data-map-camera="orbit" data-i18n-title="autoOrbit" title="Auto orbit"><svg><use href="#i-rotate-right"/></svg><span data-i18n="orbit">ORBIT</span></button>
+            </div>
+            <div id="mapCameraReadout" class="map-camera-readout"></div>
+            <div id="mapGestureHint" class="map-gesture-hint"></div>
+            <div id="domainFeedRail" class="domain-feed-rail" aria-label="Multi-domain live intelligence feeds"></div>
+            <div id="mapLegend" class="map-legend"></div>
+            <div id="mapAttribution" class="map-attribution">Esri · OpenStreetMap 3D · Simulated operational overlays</div>
+            <div id="mapSelectionLabel" class="map-selection-label"></div>
+          </div>
+        </section>
+
+        <aside class="right-column">
+          <section id="selectedAssetPanel" class="panel selected-asset-panel"></section>
+          <section id="missionPanel" class="panel mission-panel"></section>
+          <section id="quickActionsPanel" class="panel quick-actions-panel"></section>
+        </aside>
+      </section>
+
+      <section id="analyticsStrip" class="analytics-strip"></section>
+    </main>
+
+    <main id="droneOpsPage" class="drone-ops-page module-page" hidden>
+      <section id="droneOpsScope" class="scope-bar drone-ops-scope"></section>
+      <section id="droneKpiStrip" class="drone-kpi-strip"></section>
+
+      <section class="drone-workspace">
+        <section class="panel drone-fleet-panel">
+          <div class="panel-heading drone-panel-heading"><div><span class="eyebrow" data-i18n="airDomainPicture">Air-domain operating picture</span><h2 data-i18n="droneFleet">Drone fleet</h2></div><span id="droneFleetCount" class="drone-count"></span></div>
+          <div class="drone-fleet-tools">
+            <label class="drone-search"><svg><use href="#i-search"/></svg><input id="droneFleetSearch" type="search" autocomplete="off" data-i18n-placeholder="searchDrone" placeholder="Search drone, model or location"></label>
+            <div id="droneStatusFilters" class="drone-status-filters"></div>
+          </div>
+          <div class="drone-table-head"><span>ID / <b data-i18n="model">Model</b></span><span data-i18n="status">Status</span><span data-i18n="battery">Battery</span></div>
+          <div id="droneFleetList" class="drone-fleet-list"></div>
+        </section>
+
+        <section class="drone-center-stage">
+          <div class="drone-command-row">
+            <section id="droneSelectedPanel" class="panel drone-selected-panel"></section>
+            <section id="droneCameraPanel" class="panel drone-camera-panel"></section>
+          </div>
+          <div id="droneMapMount" class="drone-map-mount"><div id="droneMapIntel" class="drone-map-intel"></div></div>
+        </section>
+
+        <aside class="drone-right-rail">
+          <section id="droneMissionPanel" class="panel drone-mission-panel"></section>
+          <section id="droneEventPanel" class="panel drone-event-panel"></section>
+          <section id="droneInsightPanel" class="panel drone-insight-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="roboticsPage" class="robotics-page module-page" hidden>
+      <section id="roboticsScope" class="scope-bar robotics-scope"></section>
+      <section id="robotKpiStrip" class="robot-kpi-strip"></section>
+      <section class="robotics-workspace">
+        <aside class="robot-left-rail">
+          <section class="panel robot-category-panel"><div class="robot-section-head"><div><span class="eyebrow" data-i18n="landDomainPicture">Land-domain operating picture</span><h2 data-i18n="roboticsCommandCenter">Robotics Command Center</h2></div></div><div id="robotCategoryNav" class="robot-category-nav"></div></section>
+          <section id="robotSummaryPanel" class="panel robot-summary-panel"></section>
+          <section id="robotStatsPanel" class="panel robot-stats-panel"></section>
+        </aside>
+        <section class="robot-center-stage">
+          <div id="robotMapMount" class="robot-map-mount"><div id="robotMapIntel" class="robot-map-intel"></div></div>
+          <section class="panel robot-fleet-panel">
+            <div class="robot-section-head"><div><span class="eyebrow" data-i18n="groundFleetRegister">Ground fleet register</span><h2 data-i18n="robotFleet">Robot Fleet</h2></div><span id="robotFleetCount" class="robot-count"></span></div>
+            <div class="robot-fleet-tools"><label class="robot-search"><svg><use href="#i-search"/></svg><input id="robotFleetSearch" type="search" autocomplete="off" data-i18n-placeholder="searchRobot" placeholder="Search robot, type or location"></label><div id="robotStatusFilters" class="robot-status-filters"></div></div>
+            <div class="robot-table-head"><span>ID / <b data-i18n="type">Type</b></span><span data-i18n="location">Location</span><span data-i18n="battery">Battery</span><span data-i18n="status">Status</span><span data-i18n="mission">Mission</span><span data-i18n="health">Health</span></div>
+            <div id="robotFleetList" class="robot-fleet-list"></div>
+          </section>
+        </section>
+        <aside class="robot-right-rail">
+          <section id="robotSelectedPanel" class="panel robot-selected-panel"></section>
+          <section id="robotMissionPanel" class="panel robot-mission-panel"></section>
+          <section id="robotTelemetryPanel" class="panel robot-telemetry-panel"></section>
+          <section id="robotCameraPanel" class="panel robot-camera-panel"></section>
+          <section id="robotEventsPanel" class="panel robot-events-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="maritimePage" class="maritime-page module-page" hidden>
+      <section id="maritimeScope" class="scope-bar maritime-scope"></section>
+      <section id="maritimeKpiStrip" class="maritime-kpi-strip"></section>
+      <section class="maritime-workspace">
+        <aside class="maritime-left-rail">
+          <section class="panel maritime-fleet-panel">
+            <div class="maritime-section-head"><div><span class="eyebrow" data-i18n="seaDomainPicture">Sea-domain operating picture</span><h2 data-i18n="maritimeFleet">Maritime Fleet</h2></div><span id="maritimeFleetCount"></span></div>
+            <div class="maritime-fleet-tools"><label><svg><use href="#i-search"/></svg><input id="maritimeFleetSearch" type="search" autocomplete="off" data-i18n-placeholder="searchVessel" placeholder="Search vessel, port or mission"></label><div id="maritimeTypeFilters"></div></div>
+            <div class="maritime-table-head"><span>ID / <b data-i18n="type">Type</b></span><span data-i18n="status">Status</span><span data-i18n="battery">Battery</span></div>
+            <div id="maritimeFleetList" class="maritime-fleet-list"></div>
+          </section>
+          <section id="maritimeContactPanel" class="panel maritime-contact-panel"></section>
+        </aside>
+        <section class="maritime-center-stage">
+          <div id="maritimeMapMount" class="maritime-map-mount"><div id="maritimeMapIntel" class="maritime-map-intel"></div></div>
+          <div class="maritime-command-row">
+            <section id="maritimeSelectedPanel" class="panel maritime-selected-panel"></section>
+            <section id="maritimeCameraPanel" class="panel maritime-camera-panel"></section>
+          </div>
+        </section>
+        <aside class="maritime-right-rail">
+          <section id="maritimeMissionPanel" class="panel maritime-mission-panel"></section>
+          <section id="maritimeRadarPanel" class="panel maritime-radar-panel"></section>
+          <section id="maritimeEnvironmentPanel" class="panel maritime-environment-panel"></section>
+          <section id="maritimeEventsPanel" class="panel maritime-events-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="mobilityPage" class="mobility-page module-page" hidden>
+      <section id="mobilityScope" class="scope-bar mobility-scope"></section>
+      <section id="mobilityKpiStrip" class="mobility-kpi-strip"></section>
+      <section class="mobility-workspace">
+        <aside class="mobility-left-rail">
+          <section class="panel mobility-fleet-panel">
+            <div class="mobility-section-head"><div><span class="eyebrow" data-i18n="mobilityPicture">Road-network operating picture</span><h2>Autonomous Mobility Fleet</h2></div><span id="mobilityFleetCount"></span></div>
+            <div class="mobility-fleet-tools"><label><svg><use href="#i-search"/></svg><input id="mobilityFleetSearch" type="search" autocomplete="off" data-i18n-placeholder="searchVehicle" placeholder="Search vehicle, route or service"></label><div id="mobilityTypeFilters"></div></div>
+            <div class="mobility-table-head"><span>ID / TYPE</span><span>STATUS</span><span>ENERGY</span></div>
+            <div id="mobilityFleetList" class="mobility-fleet-list"></div>
+          </section>
+          <section id="mobilityNetworkPanel" class="panel mobility-network-panel"></section>
+        </aside>
+        <section class="mobility-center-stage">
+          <div id="mobilityMapMount" class="mobility-map-mount"><div id="mobilityMapIntel" class="mobility-map-intel"></div></div>
+          <div class="mobility-command-row">
+            <section id="mobilitySelectedPanel" class="panel mobility-selected-panel"></section>
+            <section id="mobilityCameraPanel" class="panel mobility-camera-panel"></section>
+          </div>
+        </section>
+        <aside class="mobility-right-rail">
+          <section id="mobilityMissionPanel" class="panel mobility-mission-panel"></section>
+          <section id="mobilitySafetyPanel" class="panel mobility-safety-panel"></section>
+          <section id="mobilityTelemetryPanel" class="panel mobility-telemetry-panel"></section>
+          <section id="mobilityEventsPanel" class="panel mobility-events-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="aiPage" class="ai-page module-page" hidden>
+      <section id="aiScope" class="scope-bar ai-scope"></section>
+      <section id="aiKpiStrip" class="ai-kpi-strip"></section>
+      <section class="ai-workspace">
+        <aside class="ai-left-rail">
+          <section class="panel ai-model-panel">
+            <div class="ai-section-head"><div><span class="eyebrow">MLOPS · PRODUCTION REGISTRY</span><h2>AI Model Operations</h2></div><span id="aiModelCount"></span></div>
+            <div class="ai-model-tools"><label><svg><use href="#i-search"/></svg><input id="aiModelSearch" type="search" autocomplete="off" data-i18n-placeholder="searchAi" placeholder="Search model, detection or location"></label><div id="aiDomainFilters"></div></div>
+            <div id="aiModelList" class="ai-model-list"></div>
+          </section>
+          <section id="aiDetectionQueue" class="panel ai-detection-queue"></section>
+        </aside>
+        <section class="ai-center-stage">
+          <div id="aiMapMount" class="ai-map-mount"><div id="aiMapIntel" class="ai-map-intel"></div></div>
+          <div class="ai-decision-row">
+            <section id="aiEvidencePanel" class="panel ai-evidence-panel"></section>
+            <section id="aiDecisionPanel" class="panel ai-decision-panel"></section>
+          </div>
+        </section>
+        <aside class="ai-right-rail">
+          <section id="aiAssurancePanel" class="panel ai-assurance-panel"></section>
+          <section id="aiApprovalPanel" class="panel ai-approval-panel"></section>
+          <section id="aiComputePanel" class="panel ai-compute-panel"></section>
+          <section id="aiEventsPanel" class="panel ai-events-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="incidentsPage" class="incidents-page module-page" hidden>
+      <section id="incidentScope" class="scope-bar incident-scope"></section>
+      <section id="incidentKpiStrip" class="incident-kpi-strip"></section>
+      <section class="incident-workspace">
+        <aside class="incident-left-rail">
+          <section class="panel incident-queue-panel">
+            <div class="incident-section-head"><div><span class="eyebrow">NATIONAL TRIAGE · PRIORITY QUEUE</span><h2>Active Incident Register</h2></div><b id="incidentCount"></b></div>
+            <div class="incident-tools"><label><svg><use href="#i-search"/></svg><input id="incidentSearch" type="search" autocomplete="off" data-i18n-placeholder="searchIncident" placeholder="Search incident, location or responding unit"></label><div id="incidentFilters"></div></div>
+            <div id="incidentQueue" class="incident-queue"></div>
+          </section>
+          <section id="incidentCorrelationPanel" class="panel incident-correlation-panel"></section>
+        </aside>
+        <section class="incident-center-stage">
+          <div id="incidentMapMount" class="incident-map-mount"><div id="incidentMapIntel" class="incident-map-intel"></div></div>
+          <div class="incident-command-row">
+            <section id="incidentEvidencePanel" class="panel incident-evidence-panel"></section>
+            <section id="incidentActionPanel" class="panel incident-action-panel"></section>
+          </div>
+        </section>
+        <aside class="incident-right-rail">
+          <section id="incidentStatusPanel" class="panel incident-status-panel"></section>
+          <section id="incidentResourcesPanel" class="panel incident-resources-panel"></section>
+          <section id="incidentCommsPanel" class="panel incident-comms-panel"></section>
+          <section id="incidentTimelinePanel" class="panel incident-timeline-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="digitalTwinPage" class="twin-page module-page" hidden>
+      <section id="twinScope" class="scope-bar twin-scope"></section>
+      <section id="twinKpiStrip" class="twin-kpi-strip"></section>
+      <section class="twin-workspace">
+        <aside class="twin-left-rail">
+          <section class="panel twin-catalog-panel">
+            <div class="twin-section-head"><div><span class="eyebrow" data-i18n="twinRegistry">LIVE FEDERATED MODEL</span><h2 data-i18n="digitalTwinLayers">Digital Twin Layers</h2></div><b id="twinObjectCount"></b></div>
+            <div id="twinCatalog" class="twin-catalog"></div>
+          </section>
+          <section id="twinDistrictPanel" class="panel twin-district-panel"></section>
+        </aside>
+        <section class="twin-center-stage">
+          <div id="twinMapMount" class="twin-map-mount"><div id="twinMapIntel" class="twin-map-intel"></div></div>
+          <div class="twin-command-row">
+            <section id="twinObjectPanel" class="panel twin-object-panel"></section>
+            <section id="twinTimelinePanel" class="panel twin-timeline-panel"></section>
+          </div>
+        </section>
+        <aside class="twin-right-rail">
+          <section id="twinHealthPanel" class="panel twin-health-panel"></section>
+          <section id="twinScenarioPanel" class="panel twin-scenario-panel"></section>
+          <section id="twinSensorPanel" class="panel twin-sensor-panel"></section>
+          <section id="twinEnvironmentPanel" class="panel twin-environment-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="liveMapPage" class="live-map-page module-page" hidden>
+      <section id="liveMapScope" class="scope-bar live-map-scope"></section>
+      <section id="liveMapKpiStrip" class="live-map-kpi-strip"></section>
+      <section class="live-map-workspace">
+        <aside class="live-map-left-rail">
+          <section class="panel live-map-layers-panel">
+            <div class="live-section-head"><div><span class="eyebrow" data-i18n="commonOperatingPicture">COMMON OPERATING PICTURE</span><h2 data-i18n="domainIntelligenceLayers">Domain &amp; Intelligence Layers</h2></div><b id="liveMapContactCount"></b></div>
+            <div id="liveMapLayerMatrix" class="live-map-layer-matrix"></div>
+          </section>
+          <section id="liveMapRegionPanel" class="panel live-map-region-panel"></section>
+          <section id="liveMapCoveragePanel" class="panel live-map-coverage-panel"></section>
+        </aside>
+        <section class="live-map-center-stage">
+          <div id="liveMapMount" class="live-map-mount"><div id="liveMapIntel" class="live-map-intel"></div></div>
+          <div class="live-map-bottom-row">
+            <section id="liveMapTimelinePanel" class="panel live-map-timeline-panel"></section>
+            <section id="liveMapCorrelationPanel" class="panel live-map-correlation-panel"></section>
+          </div>
+        </section>
+        <aside class="live-map-right-rail">
+          <section id="liveMapObjectPanel" class="panel live-map-object-panel"></section>
+          <section id="liveMapEventPanel" class="panel live-map-event-panel"></section>
+          <section id="liveMapCommandPanel" class="panel live-map-command-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="fleetPage" class="fleet-page module-page" hidden>
+      <section id="fleetScope" class="scope-bar fleet-scope"></section>
+      <section id="fleetKpiStrip" class="fleet-kpi-strip"></section>
+      <section class="fleet-workspace">
+        <aside class="fleet-left-rail">
+          <section class="panel fleet-register-panel">
+            <div class="fleet-section-head"><div><span class="eyebrow" data-i18n="nationalAssetRegister">NATIONAL ASSET REGISTER</span><h2 data-i18n="unifiedFleet">Unified Fleet</h2></div><b id="fleetRegisterCount"></b></div>
+            <div class="fleet-register-tools"><label><svg><use href="#i-search"/></svg><input id="fleetSearch" type="search" autocomplete="off" data-i18n-placeholder="searchFleet" placeholder="Search asset, depot or work order"></label><div id="fleetFilters" class="fleet-filters"></div></div>
+            <div id="fleetRegister" class="fleet-register"></div>
+          </section>
+          <section id="fleetAllocationPanel" class="panel fleet-allocation-panel"></section>
+        </aside>
+        <section class="fleet-center-stage">
+          <div class="fleet-primary-row">
+            <section id="fleetPassportPanel" class="panel fleet-passport-panel"></section>
+            <div id="fleetMapMount" class="fleet-map-mount"><div id="fleetMapIntel" class="fleet-map-intel"></div></div>
+          </div>
+          <div class="fleet-bottom-row">
+            <section id="fleetHealthPanel" class="panel fleet-health-panel"></section>
+            <section id="fleetUtilizationPanel" class="panel fleet-utilization-panel"></section>
+            <section id="fleetConfigurationPanel" class="panel fleet-configuration-panel"></section>
+          </div>
+        </section>
+        <aside class="fleet-right-rail">
+          <section id="fleetReadinessPanel" class="panel fleet-readiness-panel"></section>
+          <section id="fleetMaintenancePanel" class="panel fleet-maintenance-panel"></section>
+          <section id="fleetCompliancePanel" class="panel fleet-compliance-panel"></section>
+          <section id="fleetSupplyPanel" class="panel fleet-supply-panel"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="analyticsPage" class="analytics-page module-page" hidden>
+      <section id="analyticsScope" class="scope-bar analytics-scope"></section>
+      <section id="analyticsKpis" class="analytics-kpis"></section>
+      <section class="analytics-workspace">
+        <aside class="analytics-left-rail">
+          <section id="analyticsFilters" class="panel analytics-filters"></section>
+          <section id="analyticsExecutive" class="panel analytics-executive"></section>
+          <section id="analyticsSignals" class="panel analytics-signals"></section>
+        </aside>
+        <section class="analytics-center-stage">
+          <section id="analyticsTrend" class="panel analytics-trend"></section>
+          <div class="analytics-center-row">
+            <section id="analyticsDomain" class="panel analytics-domain"></section>
+            <section id="analyticsMission" class="panel analytics-mission"></section>
+          </div>
+          <div class="analytics-center-row lower">
+            <section id="analyticsRegion" class="panel analytics-region"></section>
+            <section id="analyticsForecast" class="panel analytics-forecast"></section>
+          </div>
+        </section>
+        <aside class="analytics-right-rail">
+          <section id="analyticsBrief" class="panel analytics-brief"></section>
+          <section id="analyticsDrivers" class="panel analytics-drivers"></section>
+          <section id="analyticsSaved" class="panel analytics-saved"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="securityPage" class="security-page module-page" hidden>
+      <section id="securityScope" class="scope-bar security-scope"></section>
+      <section id="securityKpis" class="security-kpis"></section>
+      <section class="security-workspace">
+        <aside class="security-left-rail">
+          <section id="securityQueue" class="panel security-queue"></section>
+          <section id="securityPosture" class="panel security-posture"></section>
+        </aside>
+        <section class="security-center-stage">
+          <section id="securityFabric" class="panel security-fabric"></section>
+          <div class="security-center-row">
+            <section id="securityTimeline" class="panel security-timeline"></section>
+            <section id="securityAttack" class="panel security-attack"></section>
+          </div>
+          <div class="security-center-row lower">
+            <section id="securityIdentity" class="panel security-identity"></section>
+            <section id="securityIntegrity" class="panel security-integrity"></section>
+          </div>
+        </section>
+        <aside class="security-right-rail">
+          <section id="securityCase" class="panel security-case"></section>
+          <section id="securityPlaybook" class="panel security-playbook"></section>
+          <section id="securityEvidence" class="panel security-evidence"></section>
+        </aside>
+      </section>
+    </main>
+
+    <main id="missionsPage" class="missions-page module-page" hidden>
+      <section id="missionsScope" class="scope-bar"></section><section id="missionsKpis" class="final-kpis"></section>
+      <section class="missions-workspace"><aside class="missions-left"><section id="missionQueue" class="panel"></section><section id="missionTemplates" class="panel"></section></aside>
+      <section class="missions-center"><div id="missionMapMount" class="mission-map-mount"><div id="missionMapIntel" class="mission-map-intel"></div></div><section id="missionTimeline" class="panel"></section><div class="mission-lower"><section id="missionObjectives" class="panel"></section><section id="missionRisk" class="panel"></section></div></section>
+      <aside class="missions-right"><section id="missionDossier" class="panel"></section><section id="missionResources" class="panel"></section><section id="missionCommand" class="panel"></section><section id="missionActivity" class="panel"></section></aside></section>
+    </main>
+
+    <main id="reportsPage" class="reports-page module-page" hidden>
+      <section id="reportsScope" class="scope-bar"></section><section id="reportsKpis" class="final-kpis"></section>
+      <section class="reports-workspace"><aside class="reports-left"><section id="reportCatalog" class="panel"></section><section id="reportFilters" class="panel"></section></aside>
+      <section class="reports-center"><section id="reportPreview" class="panel"></section><div class="report-lower"><section id="reportInsights" class="panel"></section><section id="reportLineage" class="panel"></section></div></section>
+      <aside class="reports-right"><section id="reportSchedule" class="panel"></section><section id="reportDistribution" class="panel"></section><section id="reportEvidence" class="panel"></section><section id="reportHistory" class="panel"></section></aside></section>
+    </main>
+
+    <main id="settingsPage" class="settings-page module-page" hidden>
+      <section id="settingsScope" class="scope-bar"></section><section id="settingsKpis" class="final-kpis"></section>
+      <section class="settings-workspace"><aside class="settings-left"><section id="settingsNav" class="panel"></section><section id="settingsHealth" class="panel"></section></aside>
+      <section class="settings-center"><section id="settingsWorkspace" class="panel"></section><div class="settings-lower"><section id="settingsPolicy" class="panel"></section><section id="settingsIntegration" class="panel"></section></div></section>
+      <aside class="settings-right"><section id="settingsChange" class="panel"></section><section id="settingsAudit" class="panel"></section><section id="settingsBackup" class="panel"></section></aside></section>
+    </main>
+
+    <footer class="status-footer">
+      <div><strong data-i18n="footerTitle">UAE Autonomous Command Center</strong><span data-i18n="footerNote">Illustrative concept · Simulated operational data</span><span id="presentationModeBadge" class="presentation-mode-badge" data-i18n="presentationMode">Presentation mode</span></div>
+      <div class="scenario-controls"><span id="scenarioLabel">Scenario 03 · Infrastructure anomaly</span><button id="demoGuideBtn" type="button" data-tooltip="Demo guide"><svg><use href="#i-target"/></svg><span data-i18n="demoGuide">Demo guide</span></button><button id="playPauseBtn" type="button"><svg><use href="#i-pause"/></svg><span data-i18n="pause">Pause</span></button><button id="resetBtn" type="button"><svg><use href="#i-reset"/></svg><span data-i18n="reset">Reset</span></button></div>
+      <div class="footer-search"><svg><use href="#i-search"/></svg><input id="globalSearch" type="search" data-i18n-placeholder="globalSearch" placeholder="Search assets, incidents and missions"></div>
+    </footer>
+  </div>
+
+  <div id="drawerScrim" class="drawer-scrim"></div>
+  <aside id="roleDrawer" class="role-drawer" aria-hidden="true">
+    <div class="drawer-heading"><div><span class="eyebrow" data-i18n="identitySimulation">Identity simulation</span><h2 data-i18n="switchOperator">Switch operator</h2></div><button class="icon-button" data-close-drawer type="button"><svg><use href="#i-close"/></svg></button></div>
+    <p class="drawer-intro" data-i18n="roleIntro">Change the demo identity to see how navigation, data, map detail and command authority respond to role and scope.</p>
+    <div id="activeScopeCard" class="active-scope-card"></div>
+    <div id="userList" class="user-list"></div>
+    <div class="drawer-actions"><button type="button" data-action="access-matrix"><svg><use href="#i-shield"/></svg><span data-i18n="accessMatrix">Access matrix</span></button><button type="button" data-action="audit-trail"><svg><use href="#i-audit"/></svg><span data-i18n="auditTrail">Audit trail</span></button></div>
+  </aside>
+
+  <div id="modalRoot" class="modal-root" aria-hidden="true"></div>
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/map-data.js"></script>
+  <script src="assets/js/model-data.js"></script>
+  <script src="assets/js/arcgis-map.js"></script>
+  <script src="assets/js/drone-ops.js"></script>
+  <script src="assets/js/robotics.js"></script>
+  <script src="assets/js/maritime.js"></script>
+  <script src="assets/js/mobility.js"></script>
+  <script src="assets/js/ai-intelligence.js"></script>
+  <script src="assets/js/incidents.js"></script>
+  <script src="assets/js/digital-twin.js"></script>
+  <script src="assets/js/live-map.js"></script>
+  <script src="assets/js/fleet.js"></script>
+  <script src="assets/js/analytics.js"></script>
+  <script src="assets/js/security.js"></script>
+  <script src="assets/js/missions.js"></script>
+  <script src="assets/js/reports.js"></script>
+  <script src="assets/js/settings.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

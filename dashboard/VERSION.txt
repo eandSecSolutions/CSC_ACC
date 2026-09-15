@@ -1,0 +1,7 @@
+UAE Autonomous Command Center Interactive Demo
+Version: 0.2.9
+Proposal baseline: 0.15.6 (unchanged)
+Modules: Command Center + Live Map + Drone Operations + Robotics Command Center + Maritime Operations Center + Autonomous Mobility Operations Center + AI Intelligence & Assurance Center + National Incident Command Center + Fleet Readiness & Lifecycle + Federated Digital Twin + National Analytics + Cyber-Physical Security Operations + Mission Command + Governed Reports + Platform Settings
+Data classification: Illustrative / simulated
+Map: One cached live ArcGIS SceneView + national/live/fleet/domain/AI/incident/digital-twin/mission contexts + live 3D analysis/weather/lighting + OSM 3D buildings + local fallback; suspended in Analytics, Security, Reports and Settings
+Display: Deterministic Large / Medium / Small text tiers with matched record spacing, responsive side rails, light/dark themes and bilingual RTL

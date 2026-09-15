@@ -1,0 +1,126 @@
+/* v0.2.9 · Deterministic type-size control and layout consistency */
+
+/*
+ * Typography is deliberately fixed per user-selected tier. Viewport-based type
+ * made a 1920 px display enlarge copy without enlarging its rows, which caused
+ * the clipping visible in dense registers. Each tier now controls type and the
+ * minimum space needed by that type as a single system.
+ */
+body[data-font-size="small"]{
+  --acc-micro:8px;--acc-small:8.75px;--acc-body:9.75px;--acc-heading:11.25px;
+  --acc-title:17px;--acc-value:18px;--acc-leading:1.3;
+  --acc-record-row:46px;--acc-compact-row:30px;--acc-control-height:27px;
+}
+body[data-font-size="medium"]{
+  --acc-micro:8.75px;--acc-small:9.5px;--acc-body:10.75px;--acc-heading:12.25px;
+  --acc-title:18.5px;--acc-value:20px;--acc-leading:1.34;
+  --acc-record-row:51px;--acc-compact-row:34px;--acc-control-height:30px;
+}
+body[data-font-size="large"],body:not([data-font-size]){
+  --acc-micro:9.5px;--acc-small:10.5px;--acc-body:12px;--acc-heading:13.5px;
+  --acc-title:20px;--acc-value:22px;--acc-leading:1.38;
+  --acc-record-row:56px;--acc-compact-row:38px;--acc-control-height:33px;
+}
+
+/* Three-state text-size selector replaces the former Demo Mode chip. */
+.font-size-control{
+  width:104px;height:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  padding:2px;border:1px solid var(--line);border-radius:7px;background:var(--panel-2);
+  direction:ltr;box-shadow:inset 0 0 12px rgba(33,212,244,.025)
+}
+.font-size-control button{
+  min-width:0;border:1px solid transparent;border-radius:4px;background:transparent;
+  color:var(--muted);cursor:pointer;display:grid;place-items:center;padding:0;
+  transition:background-color 160ms ease,border-color 160ms ease,color 160ms ease,transform 160ms ease
+}
+.font-size-control button:nth-child(1) span{font-size:9px!important}
+.font-size-control button:nth-child(2) span{font-size:12px!important}
+.font-size-control button:nth-child(3) span{font-size:15px!important}
+.font-size-control button:hover{color:var(--text);border-color:var(--line)}
+.font-size-control button.active,.font-size-control button[aria-pressed="true"]{
+  color:#fff;border-color:#ff6178;background:linear-gradient(180deg,#e32642,#a8112a);
+  box-shadow:0 0 12px rgba(226,37,59,.28)
+}
+.font-size-control button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+body[data-theme="light"] .font-size-control{background:#eef4f6}
+
+/* Never let navigation or scope metadata escape its own track. */
+.module-nav button,.module-nav button span,.scope-bar>*{min-width:0}
+.module-nav button span{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scope-bar{overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.scope-bar::-webkit-scrollbar{display:none}
+.top-actions>*{min-width:0}
+
+/* Record rows grow with the selected tier instead of clipping their contents. */
+:is(.incident-row,.ai-alert-row,.drone-fleet-row,.robot-fleet-row,.maritime-fleet-row,.mobility-fleet-row,.ai-model-row,
+     .incident-queue>button,.twin-object-list>button,.live-sector-list>button,.live-event-list>button,
+     .fleet-register>button,.mission-list button,.report-list button,.settings-menu button,.final-list button){
+  height:auto!important;min-height:var(--acc-record-row)!important
+}
+:is(.incident-actions-list,.incident-resource-list,.incident-comms-list,.incident-timeline-list,
+     .ai-detection-list,.ai-event-list,.ai-approval-list,.robot-event-list,.maritime-event-list,
+     .mobility-event-list,.mobility-node-list,.twin-sensor-list,.drone-event-list,.drone-insight-list)>button{
+  height:auto!important;min-height:var(--acc-compact-row)!important;padding-block:4px!important
+}
+:is(.incident-command-buttons,.drone-control-strip,.mission-command-grid,.live-command-grid,.twin-object-actions)>button{
+  height:auto!important;min-height:var(--acc-control-height)!important
+}
+.incident-row>*{min-width:0}
+.incident-row :is(b,p,small,.incident-age){line-height:1.28}
+.incident-row .incident-main{min-width:0;overflow:hidden}
+.incident-row .incident-id-line{min-width:0;gap:4px}
+.incident-row .incident-id-line b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.incident-row p,.incident-row small{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.incident-row .incident-age{white-space:nowrap;align-self:center}
+.ai-model-row>*{min-width:0}
+
+/* Report names get two readable lines rather than a premature one-line crop. */
+.report-list button{grid-template-columns:auto minmax(0,1fr) auto!important;align-content:center}
+.report-list button>span{min-width:0}
+.report-list b{
+  white-space:normal!important;overflow:hidden;text-overflow:clip!important;
+  display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;
+  line-height:1.25!important
+}
+.report-list small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Let dense cards contain taller copy and scroll locally only when necessary. */
+.module-page .panel{min-width:0}
+.module-page :is(.incident-queue,.ai-model-list,.ai-detection-list,.report-list,.mission-list,.fleet-register){overflow-y:auto;overflow-x:hidden}
+.module-page :is(.incident-kpi,.ai-kpi,.f-kpi,.a-kpi,.s-kpi,.kpi-card,.drone-kpi-card,.robot-kpi,.maritime-kpi,.mobility-kpi,.twin-kpi){min-width:0}
+.module-page :is(.incident-kpi,.ai-kpi,.f-kpi,.a-kpi,.s-kpi,.kpi-card,.drone-kpi-card,.robot-kpi,.maritime-kpi,.mobility-kpi,.twin-kpi) :is(span,small,em){line-height:1.2}
+
+/* Large displays receive more useful side-rail width; centre stages remain fluid. */
+@media(min-width:1600px){
+  .operations-grid{grid-template-columns:minmax(300px,18vw) minmax(0,1fr) minmax(300px,18vw)}
+  .drone-workspace{grid-template-columns:minmax(300px,18vw) minmax(0,1fr) minmax(295px,18vw)}
+  .robotics-workspace,.maritime-workspace,.mobility-workspace{grid-template-columns:minmax(285px,17.5vw) minmax(0,1fr) minmax(300px,18.5vw)}
+  .ai-workspace{grid-template-columns:minmax(300px,18.5vw) minmax(0,1fr) minmax(310px,19vw)}
+  .incident-workspace{grid-template-columns:minmax(315px,19.5vw) minmax(0,1fr) minmax(330px,20.5vw)}
+  .twin-workspace,.live-map-workspace,.fleet-workspace,.analytics-workspace,.security-workspace{grid-template-columns:minmax(285px,17.5vw) minmax(0,1fr) minmax(300px,18.5vw)}
+  .missions-workspace,.reports-workspace,.settings-workspace{grid-template-columns:minmax(300px,18.5vw) minmax(0,1fr) minmax(315px,19.5vw)}
+}
+
+/* Responsive header keeps all five controls present and tappable. */
+@media(max-width:1180px){
+  .top-actions{grid-template-columns:42px 50px 104px 42px minmax(170px,1fr)}
+  .top-actions :is(.icon-button,.language-button,.font-size-control){width:100%;height:40px}
+  .font-size-control{padding:3px}
+  .module-page .panel{min-height:220px}
+}
+@media(max-width:680px){
+  .top-actions{grid-template-columns:40px 46px 102px 40px minmax(120px,1fr)}
+  .top-actions :is(.icon-button,.language-button,.font-size-control){height:42px}
+  body[data-font-size="large"]{--acc-micro:10px;--acc-small:11px;--acc-body:12px;--acc-heading:14px;--acc-title:16px;--acc-value:20px}
+  body[data-font-size="medium"]{--acc-micro:9px;--acc-small:10px;--acc-body:11px;--acc-heading:13px;--acc-title:15px;--acc-value:19px}
+  body[data-font-size="small"]{--acc-micro:8px;--acc-small:9px;--acc-body:10px;--acc-heading:12px;--acc-title:14px;--acc-value:18px}
+}
+@media(max-width:420px){
+  .top-actions{grid-template-columns:38px 43px 96px 38px minmax(105px,1fr);gap:4px}
+  .font-size-control{width:96px}
+}
+
+/* Text-size changes should feel immediate and never trigger distracting motion. */
+@media(prefers-reduced-motion:no-preference){
+  .module-page,.modal-root{transition:font-size 120ms ease}
+}

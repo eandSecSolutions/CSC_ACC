@@ -1,0 +1,81 @@
+/* v0.2.7 · Presentation-readiness, typography, accessibility and integration polish */
+:root{--surface-transition:180ms ease;--focus-ring:0 0 0 2px var(--bg),0 0 0 4px var(--cyan)}
+[hidden]{display:none!important}
+button,input,select,textarea{font-family:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:0;box-shadow:var(--focus-ring)!important;position:relative;z-index:3}
+.app-shell,.module-page,.module-page>*,.topbar>*,.brand-lockup,.brand-copy,.top-actions,.health-strip,.panel,.panel-heading,.panel-heading>div,.section-minihead,.section-minihead>*,.final-head,.final-head>div,.asset-summary>*,.asset-field>*,.search-result>*,.user-card>*,.status-footer>*,.scenario-controls{min-width:0}
+.brand-copy h1,.brand-copy p,.user-copy b,.user-copy small,.health-item small,.health-item b,.panel-heading h2,.section-minihead h2,.final-head h2,.scenario-controls>span,.status-footer>div:first-child>span:not(.presentation-mode-badge){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.panel-heading h2,.section-minihead h2,.final-head h2{text-wrap:balance}
+.module-page:not([hidden]){animation:pageResolve .22s ease both}
+@keyframes pageResolve{from{opacity:.55;transform:translateY(2px)}to{opacity:1;transform:none}}
+.page-suspended *{animation-play-state:paused!important}
+.module-nav button{isolation:isolate}.module-nav button::before{content:"";position:absolute;inset:auto 20% 0;height:2px;background:var(--cyan);transform:scaleX(0);transition:transform var(--surface-transition)}.module-nav button:hover::before,.module-nav button:focus-visible::before{transform:scaleX(1)}.module-nav button.active::before{display:none}
+.module-nav button.locked{cursor:not-allowed}.module-nav button.locked:hover::before{display:none}
+.panel,.kpi-card,.analytics-card,.f-kpi{transition:border-color var(--surface-transition),background-color var(--surface-transition),box-shadow var(--surface-transition)}
+.text-action,.final-head button,.asset-actions button,.quick-action-grid button,.modal-button,.presentation-stop{transition:background-color var(--surface-transition),border-color var(--surface-transition),color var(--surface-transition),transform var(--surface-transition)}
+.text-action:hover,.final-head button:hover{color:#fff}.modal-button:active,.asset-actions button:active,.quick-action-grid button:active{transform:translateY(1px)}
+.incident-main,.incident-main p,.incident-main small,.ai-alert-row span,.ai-alert-row b,.ai-alert-row small,.mission-list span,.report-list span,.settings-menu span,.final-list span{min-width:0}.incident-main p,.incident-main small,.ai-alert-row b,.ai-alert-row small,.mission-list b,.mission-list small,.report-list b,.report-list small,.settings-menu b,.settings-menu small,.final-list b,.final-list small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.asset-field span,.asset-field b{min-width:0}.asset-field b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.asset-actions button span,.quick-action-grid button span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.table-scroll,.permission-table{overscroll-behavior:contain}.permission-table th:first-child,.permission-table td:first-child{position:sticky;inset-inline-start:0;z-index:2;background:var(--bg-2)}
+
+/* Presentation state stays quiet in normal use and becomes explicit when launched from a deck. */
+.presentation-mode-badge{display:none!important;border:1px solid rgba(35,217,147,.38)!important;border-radius:10px!important;color:var(--green)!important;padding:2px 7px!important;font-size:7px!important;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+body.presentation-mode .presentation-mode-badge{display:inline-flex!important;align-items:center;gap:4px}
+body.presentation-mode .presentation-mode-badge::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green)}
+#demoGuideBtn{border-color:rgba(33,212,244,.42);background:rgba(33,212,244,.08);color:var(--cyan)}
+#demoGuideBtn:hover{background:rgba(33,212,244,.17);color:#fff}
+
+/* Guided walkthrough overlay */
+.modal-card.presentation{width:min(1040px,96vw);max-height:min(92vh,850px)}
+.presentation-guide{display:grid;gap:10px}.presentation-guide>header{display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding:1px 1px 10px}.presentation-guide>header p{margin:3px 0 0;max-width:660px;color:var(--muted);font-size:11px;line-height:1.5}
+.presentation-ready-seal{display:flex;align-items:center;gap:7px;flex:0 0 auto;border:1px solid rgba(35,217,147,.35);border-radius:5px;background:rgba(35,217,147,.07);padding:7px 9px;color:var(--green)}.presentation-ready-seal svg{width:15px;height:15px}.presentation-ready-seal b{font-size:9px;text-transform:uppercase}
+.presentation-stop-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.presentation-stop{min-height:68px;display:grid;grid-template-columns:30px 35px minmax(0,1fr) auto;gap:8px;align-items:center;text-align:initial;border:1px solid var(--line);border-radius:6px;background:linear-gradient(145deg,rgba(12,39,50,.9),rgba(6,25,34,.94));padding:8px;cursor:pointer}.presentation-stop:hover{border-color:var(--cyan);background:rgba(20,66,79,.72);transform:translateY(-1px)}.presentation-stop-index{font-size:8px;color:var(--muted);font-variant-numeric:tabular-nums}.presentation-stop-icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(33,212,244,.28);border-radius:5px;background:rgba(33,212,244,.07);color:var(--cyan)}.presentation-stop-icon svg{width:18px;height:18px}.presentation-stop-copy{min-width:0}.presentation-stop-copy b{display:block;font-size:10px;text-transform:uppercase}.presentation-stop-copy small{display:block;margin-top:3px;color:var(--muted);font-size:8px;line-height:1.4}.presentation-stop em{font-style:normal;font-size:7px;color:var(--cyan);text-transform:uppercase;white-space:nowrap}.presentation-stop.restricted{opacity:.45;cursor:not-allowed}.presentation-stop.restricted:hover{border-color:var(--line);transform:none}
+.presentation-guide-notes{display:grid;grid-template-columns:1fr 1fr;gap:6px}.presentation-guide-notes article{display:grid;grid-template-columns:24px 1fr;gap:7px;border:1px solid var(--line-soft);border-radius:5px;padding:7px;background:rgba(7,29,39,.55)}.presentation-guide-notes svg{width:16px;height:16px;color:var(--green)}.presentation-guide-notes b{display:block;font-size:8px}.presentation-guide-notes small{display:block;color:var(--muted);font-size:7px;line-height:1.4;margin-top:2px}
+.reset-confirmation{display:grid;grid-template-columns:46px 1fr;gap:12px;align-items:start;padding:4px}.reset-confirmation>svg{width:42px;height:42px;padding:10px;border:1px solid rgba(238,38,63,.35);border-radius:50%;background:rgba(238,38,63,.08);color:var(--red)}.reset-confirmation b{font-size:12px;line-height:1.45}.reset-confirmation p{margin:6px 0 0;color:var(--muted);font-size:9px;line-height:1.5}
+
+/* Map overlays stay legible over imagery without obscuring the real scene. */
+.map-camera-controls,.map-place-presets,.map-layer-panel,.map-load-monitor,.map-camera-readout,.map-selection-label,.map-legend{box-shadow:0 8px 24px rgba(0,0,0,.24)}
+.map-selection-label{overflow:hidden}.map-selection-label b,.map-selection-label small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.map-attribution{max-width:52%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.map-panel.full-map .map-heading,#mapPanel:fullscreen .map-heading{backdrop-filter:blur(8px)}
+.map-panel.full-map .map-title,#mapPanel:fullscreen .map-title{min-width:0}
+.map-panel.full-map .map-search,#mapPanel:fullscreen .map-search{min-width:260px}
+
+/* Arabic alignment and letterforms */
+[dir="rtl"] .eyebrow,[dir="rtl"] .presentation-stop-copy b,[dir="rtl"] .presentation-ready-seal b,[dir="rtl"] .presentation-mode-badge{letter-spacing:0}
+[dir="rtl"] .presentation-stop{grid-template-columns:auto minmax(0,1fr) 35px 30px}
+[dir="rtl"] .presentation-stop-index{grid-column:4}[dir="rtl"] .presentation-stop-icon{grid-column:3}[dir="rtl"] .presentation-stop-copy{grid-column:2}[dir="rtl"] .presentation-stop em{grid-column:1;grid-row:1}
+[dir="rtl"] .map-attribution{direction:rtl}
+
+/* Light mode retains command-center contrast. */
+body[data-theme="light"] .presentation-stop{background:linear-gradient(145deg,#fff,#edf5f7)}
+body[data-theme="light"] .presentation-guide-notes article{background:#f1f7f9}
+body[data-theme="light"] .permission-table th:first-child,body[data-theme="light"] .permission-table td:first-child{background:#f6fbfc}
+
+/* Common proposal-display sizes: preserve density without collisions. */
+@media(max-width:1500px){
+  .status-footer{grid-template-columns:minmax(300px,1fr) auto minmax(210px,1fr)}
+  .scenario-controls>span{max-width:260px}
+  .presentation-mode-badge{display:none!important}
+  .modal-card.presentation{width:min(960px,96vw)}
+}
+@media(max-width:1280px){
+  .module-nav{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(78px,1fr);overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin}
+  .module-nav button{min-width:78px}
+  .status-footer{grid-template-columns:1fr auto}.footer-search{display:none}.status-footer>div:first-child>span:not(.presentation-mode-badge){max-width:240px}.scenario-controls>span{max-width:220px}
+  .presentation-stop-list{grid-template-columns:1fr}
+}
+@media(max-height:820px){
+  :root{--topbar:64px;--nav:45px;--footer:34px}
+  .topbar{padding-block:4px}.user-button{height:40px}.health-strip{height:40px}
+  .final-kpis{height:64px;padding-block:5px}.f-kpi b{font-size:14px;margin-top:2px}.missions-workspace,.reports-workspace,.settings-workspace{height:calc(100% - 99px)}
+  .final-head{height:35px;padding-block:4px}.mission-list,.report-list,.settings-menu,.final-list,.mission-dossier-body,.objective-grid,.risk-grid,.resource-grid,.mission-command-grid,.report-filter-body,.report-preview-body,.report-insights,.report-lineage,.schedule-body,.distribution-body,.evidence-body,.settings-health-body,.settings-policy-body,.settings-integration-body,.settings-change-body,.settings-backup-body,.settings-workspace-body,.settings-audit-list{height:calc(100% - 35px)}
+  .mission-hero{height:46px}.report-cover{min-height:85px}.report-cover img{height:80px}.report-chart{height:80px}
+  .modal-card.presentation{max-height:94vh}.presentation-stop{min-height:57px;padding:6px}.presentation-stop-copy small{font-size:7px}.presentation-guide-notes{display:none}
+}
+@media(max-width:820px){
+  .presentation-stop-list,.presentation-guide-notes{grid-template-columns:1fr}.presentation-guide>header{align-items:flex-start}.presentation-ready-seal{display:none}
+  .status-footer>div:first-child{display:none}.status-footer{grid-template-columns:1fr}.scenario-controls{justify-content:center}.scenario-controls>span{max-width:180px}
+  .map-panel.full-map .map-heading,#mapPanel:fullscreen .map-heading{grid-template-columns:1fr auto}.map-panel.full-map .map-search,#mapPanel:fullscreen .map-search{display:none}
+}
+@media(prefers-reduced-motion:reduce){.module-page:not([hidden]),.presentation-stop{animation:none!important;transition:none!important}}

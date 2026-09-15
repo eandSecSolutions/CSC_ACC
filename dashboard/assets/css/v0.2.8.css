@@ -1,0 +1,183 @@
+/* v0.2.8 · Responsive typography, accessible light theme and interaction polish */
+:root{
+  --acc-micro:clamp(8.75px,.52vw,10px);
+  --acc-small:clamp(9.5px,.61vw,11.5px);
+  --acc-body:clamp(10.5px,.68vw,13px);
+  --acc-heading:clamp(12px,.78vw,15px);
+  --acc-title:clamp(17px,1.12vw,22px);
+  --acc-value:clamp(18px,1.22vw,24px);
+  --acc-leading:1.38;
+  --scroll-track:rgba(3,16,23,.72);
+  --scroll-thumb:#28576a;
+  --scroll-thumb-hover:#21d4f4;
+  --ui-ease:cubic-bezier(.2,.8,.2,1);
+}
+
+html,body{min-width:0;min-height:0}
+body{font-size:var(--acc-body);line-height:var(--acc-leading);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{line-height:1.25}
+
+/* Consistent, compact scrollbars across every operational register. */
+html,*{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) var(--scroll-track)}
+*::-webkit-scrollbar{width:9px;height:9px}
+*::-webkit-scrollbar-track{background:var(--scroll-track);border-radius:10px}
+*::-webkit-scrollbar-thumb{min-height:32px;border:2px solid transparent;border-radius:10px;background-color:var(--scroll-thumb);background-clip:padding-box}
+*::-webkit-scrollbar-thumb:hover{background-color:var(--scroll-thumb-hover)}
+*::-webkit-scrollbar-corner{background:transparent}
+:is(.incident-list,.ai-alert-list,.drone-fleet-list,.robot-fleet-list,.maritime-fleet-list,.mobility-fleet-list,.ai-model-list,.incident-queue,.twin-object-list,.live-map-layer-matrix,.live-sector-list,.live-coverage-list,.live-event-list,.fleet-register,.mission-list,.report-list,.settings-menu,.final-list,.schedule-body,.distribution-body,.evidence-body,.settings-audit-list,.modal-body,.user-list,.table-scroll,.permission-table){scrollbar-gutter:stable;overscroll-behavior:contain}
+
+/* One typographic scale replaces legacy 4.5–8 px module labels. */
+.module-page :is(button,input,select,textarea,label,p,li,dt,dd,th,td){font-size:var(--acc-small)!important}
+.module-page :is(small,time,figcaption,em){font-size:var(--acc-micro)!important;line-height:1.35}
+.module-page span:not(.uae-flag):not(.status-dot):not(.sparkline):not(.live-meter):not(.fleet-meter){font-size:var(--acc-small)!important}
+.module-page b{font-size:var(--acc-body)!important;line-height:1.25}
+.module-page :is(h2,h3,h4){line-height:1.22;text-wrap:balance}
+.module-page h2{font-size:var(--acc-heading)!important}
+.module-page h3{font-size:var(--acc-body)!important}
+.module-page svg text,.modal-root svg text{font-family:var(--font)!important;font-size:var(--acc-micro)!important}
+.module-page .eyebrow,.module-page :is(.section-minihead,.panel-heading,.drone-section-head,.robot-section-head,.maritime-section-head,.mobility-section-head,.ai-section-head,.incident-section-head,.twin-section-head,.live-section-head,.fleet-section-head,.analytics-section-head,.security-section-head,.final-head) small{font-size:var(--acc-micro)!important;letter-spacing:.055em}
+.brand-copy h1{font-size:var(--acc-title);line-height:1.08}
+.brand-copy p,.time-block span,.time-block small,.health-item small,.health-item b,.user-copy b,.user-copy small,.module-nav button{font-size:var(--acc-small)}
+.scope-bar .scope-id b,.scope-tag,.scope-note{font-size:var(--acc-small)}
+
+/* KPI hierarchy: label → value → supporting context. */
+:is(.kpi-card,.drone-kpi-card,.robot-kpi,.maritime-kpi,.mobility-kpi,.ai-kpi,.incident-kpi,.twin-kpi,.a-kpi,.s-kpi,.f-kpi,.live-map-kpi-strip>button,.fleet-kpi-strip>button) :is(span,small,em){font-size:var(--acc-micro)!important}
+:is(.kpi-card .kpi-value,.drone-kpi-value,.robot-kpi,.maritime-kpi,.mobility-kpi,.ai-kpi,.incident-kpi,.twin-kpi,.a-kpi,.s-kpi,.f-kpi,.live-map-kpi-strip>button,.fleet-kpi-strip>button)>b,
+:is(.kpi-card,.drone-kpi-card) .kpi-value b,
+.drone-kpi-value b{font-size:var(--acc-value)!important;line-height:1!important}
+.donut b,.radar-disc b,.domain-orbit+div h3,.live-asset-visual h3{font-size:clamp(15px,1vw,20px)!important}
+
+/* Dense records remain readable and truncate only where the layout requires it. */
+:is(.incident-row,.ai-alert-row,.drone-fleet-row,.robot-fleet-row,.maritime-fleet-row,.mobility-fleet-row,.ai-model-row,.incident-queue button,.twin-object-list button,.live-map-layer-matrix>button,.live-sector-list>button,.live-coverage-list>button,.live-event-list>button,.fleet-register>button,.mission-list button,.report-list button,.settings-menu button,.final-list button){line-height:1.32}
+:is(.incident-row,.ai-alert-row,.drone-fleet-row,.robot-fleet-row,.maritime-fleet-row,.mobility-fleet-row,.ai-model-row,.live-sector-list>button,.live-event-list>button,.fleet-register>button,.mission-list button,.report-list button,.settings-menu button,.final-list button) b{font-size:var(--acc-small)!important}
+:is(.incident-row,.ai-alert-row,.drone-fleet-row,.robot-fleet-row,.maritime-fleet-row,.mobility-fleet-row,.ai-model-row,.live-sector-list>button,.live-event-list>button,.fleet-register>button,.mission-list button,.report-list button,.settings-menu button,.final-list button) small{font-size:var(--acc-micro)!important}
+.asset-marker .marker-label,.city-label,.aggregate-marker b,.aggregate-marker small{font-size:9px!important}
+.map-attribution,.map-camera-readout,.map-gesture-hint{font-size:9px!important}
+
+/* Form controls and touch/click targets. */
+.module-page :is(input:not([type="range"]),select,textarea){min-height:32px}
+:is(.map-modes,.drone-status-filters,.fleet-filters) button{min-height:30px}
+.setting-toggle{min-height:20px}
+
+/* Drilldowns use the same scale even though the modal host sits outside a module page. */
+.modal-root :is(button,input,select,textarea,label,p,li,dt,dd,th,td){font-size:var(--acc-small)!important}
+.modal-root :is(small,time,figcaption,em){font-size:var(--acc-micro)!important;line-height:1.38}
+.modal-root span{font-size:var(--acc-small)!important}
+.modal-root b{font-size:var(--acc-body)!important}
+.modal-root h2{font-size:clamp(15px,.9vw,18px)!important}.modal-root h3{font-size:var(--acc-heading)!important}
+.modal-root :is(.robot-ai-score,.classify-score,.ai-confidence-ring,.readiness-ring,.score-ring,.sensor-value,.scenario-comparison,.governance-score,.network-summary,.signal-cycle)>b,
+.modal-root :is(.robot-ai-score,.classify-score,.ai-confidence-ring,.readiness-ring,.score-ring,.sensor-value,.scenario-comparison,.governance-score,.network-summary,.signal-cycle) b{font-size:clamp(23px,2vw,40px)!important;line-height:1}
+.presentation-mode-badge,.presentation-stop-index,.presentation-stop em,.presentation-guide-notes small{font-size:var(--acc-micro)!important}.presentation-stop-copy b,.presentation-guide-notes b{font-size:var(--acc-small)!important}
+
+/* Motion is restrained and GPU-cheap: transforms, colors and shadows only. */
+button,.panel,.kpi-card,.analytics-card,.a-kpi,.s-kpi,.f-kpi,.search-result,.setting-row,.report-insights article{
+  transition:transform 180ms var(--ui-ease),border-color 180ms ease,background-color 180ms ease,color 180ms ease,box-shadow 180ms ease,filter 180ms ease;
+}
+@media(hover:hover){
+  .module-page button:not(:disabled):hover{filter:brightness(1.1)}
+  :is(.kpi-card,.drone-kpi-card,.robot-kpi,.maritime-kpi,.mobility-kpi,.ai-kpi,.incident-kpi,.twin-kpi,.a-kpi,.s-kpi,.f-kpi,.live-map-kpi-strip>button,.fleet-kpi-strip>button):hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--cyan) 72%,var(--line));box-shadow:0 8px 22px rgba(0,0,0,.18)}
+  :is(.incident-row,.ai-alert-row,.drone-fleet-row,.robot-fleet-row,.maritime-fleet-row,.mobility-fleet-row,.ai-model-row,.live-sector-list>button,.live-event-list>button,.fleet-register>button,.mission-list button,.report-list button,.settings-menu button,.final-list button):hover{transform:translateX(2px)}
+  [dir="rtl"] :is(.incident-row,.ai-alert-row,.drone-fleet-row,.robot-fleet-row,.maritime-fleet-row,.mobility-fleet-row,.ai-model-row,.live-sector-list>button,.live-event-list>button,.fleet-register>button,.mission-list button,.report-list button,.settings-menu button,.final-list button):hover{transform:translateX(-2px)}
+  .panel:has(>button:hover),.panel:has([role="button"]:hover){border-color:color-mix(in srgb,var(--cyan) 46%,var(--line))}
+}
+button:active:not(:disabled){transform:translateY(1px)}
+
+/* Light theme: stronger canvas separation, readable text and explicit input surfaces. */
+body[data-theme="light"]{
+  --bg:#dce7eb;--bg-2:#f7fafb;--panel:#ffffff;--panel-2:#edf4f6;--panel-3:#dfecef;
+  --line:#99b3be;--line-soft:#c4d5dc;--text:#102832;--muted:#405f6d;--subtle:#5f7b87;
+  --cyan:#006f8c;--cyan-soft:rgba(0,111,140,.11);--red:#cb1935;--green:#087457;--amber:#925900;
+  --scroll-track:#d7e3e8;--scroll-thumb:#789aa7;--scroll-thumb-hover:#006f8c;
+  background:#dce7eb;
+}
+body[data-theme="light"] .app-shell{background:radial-gradient(circle at 48% 30%,rgba(0,111,140,.08),transparent 40%),var(--bg)}
+body[data-theme="light"] :is(.panel,.analytics-card,.a-kpi,.s-kpi,.f-kpi,.drone-kpi-card,.robot-kpi,.maritime-kpi,.mobility-kpi,.ai-kpi,.incident-kpi,.twin-kpi,.live-map-kpi-strip>button,.fleet-kpi-strip>button){background:linear-gradient(145deg,#fff,#edf4f6);box-shadow:0 3px 14px rgba(27,60,72,.1)}
+body[data-theme="light"] :is(.scope-bar,.health-strip,.map-search,.footer-search,.map-modes){background:#f8fbfc}
+body[data-theme="light"] .module-page :is(input,select,textarea){background:#fff;color:var(--text);border-color:var(--line)}
+body[data-theme="light"] .module-page :is(input,textarea)::placeholder{color:#6a838e}
+body[data-theme="light"] .module-page :is([class$="-body"],[class$="-list"],[class$="-grid"],[class$="-menu"])>button:not(.active):not(.selected):not(.primary):not(.danger),
+body[data-theme="light"] .module-page :is([class$="-body"],[class$="-grid"])>article,
+body[data-theme="light"] .module-page :is(.setting-row,.report-insights article,.analytics-modal-grid article,.security-modal-grid article,.final-modal-grid article){background:#f5f9fa;color:var(--text)}
+body[data-theme="light"] .module-page button.active:not(.primary),body[data-theme="light"] .module-page button.selected{background:rgba(0,111,140,.13);color:var(--text)}
+body[data-theme="light"] .module-page :is(button.primary,button.danger),body[data-theme="light"] .module-nav button.active{color:#fff}
+body[data-theme="light"] :is(.final-head,.live-section-head,.fleet-section-head,.analytics-section-head,.security-section-head){background:linear-gradient(90deg,rgba(0,111,140,.1),transparent)}
+body[data-theme="light"] :is(.report-paper,.report-metrics button,.objective-grid button,.risk-grid button,.resource-grid button,.schedule-body button,.distribution-body button,.evidence-body button,.settings-health-body button,.settings-policy-body button,.settings-integration-body button,.settings-change-body article,.settings-backup-body button,.lineage-flow button){background:#f6fafb;color:var(--text)}
+body[data-theme="light"] .permission-table :is(th,td):first-child{background:#f2f7f9}
+body[data-theme="light"] .toast{background:#fff;color:var(--text)}
+body[data-theme="light"] .toast p{color:var(--muted)}
+body[data-theme="light"] .role-drawer{background:#f4f8fa;box-shadow:-18px 0 46px rgba(18,43,54,.2)}
+/* Controls that float over real imagery deliberately remain dark in both themes. */
+body[data-theme="light"] :is(.map-controls button,.expand-map,.map-camera-controls button,.map-place-presets button,.map-layer-panel,.map-load-monitor,.map-camera-readout,.map-selection-label,.map-legend,.map-attribution,.mission-map-intel button,.drone-map-intel button,.robot-map-intel button,.maritime-map-intel button,.mobility-map-intel button,.ai-map-intel button,.incident-map-intel button,.twin-map-intel button,.live-map-toolbar>button,.live-map-status>span,.live-map-clock){color:#e8f8fb;background:rgba(3,18,26,.9);border-color:rgba(79,157,180,.55)}
+
+/* Tablet and mobile: the fixed-wall layout becomes a durable scrollable workspace. */
+@media(max-width:1180px){
+  :root{--topbar:auto;--nav:58px;--footer:48px;--acc-micro:10px;--acc-small:11px;--acc-body:12px;--acc-heading:14px;--acc-title:18px;--acc-value:21px}
+  html,body{width:100%;height:auto;min-height:100%;overflow-x:hidden;overflow-y:auto}
+  body{padding-bottom:calc(var(--footer) + env(safe-area-inset-bottom))}
+  .app-shell{display:block;width:100%;height:auto;min-height:100dvh;padding-bottom:1px}
+  .topbar{position:relative;display:flex;flex-wrap:wrap;gap:8px;padding:8px 10px;background:var(--bg-2)}
+  .brand-lockup{width:100%;justify-content:flex-start}.brand-logos{height:42px}.brand-logos img{width:46px}.brand-logos .csc-logo{width:43px}.brand-copy{flex:1}.brand-copy h1{white-space:normal;margin-bottom:3px}.brand-copy p{font-size:11px}
+  .time-block,.health-strip{display:none}
+  .top-actions{width:100%;display:grid;grid-template-columns:42px 50px minmax(92px,auto) 42px minmax(170px,1fr);gap:6px}
+  .top-actions :is(.icon-button,.language-button,.demo-chip){width:100%;height:40px}.user-button{width:100%;height:42px;min-width:0}
+  .module-nav{position:sticky;top:0;z-index:70;height:var(--nav);display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:94px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;box-shadow:0 5px 18px rgba(0,0,0,.18)}
+  .module-nav button{min-width:94px;scroll-snap-align:center;font-size:10px;padding:5px 4px}
+  .module-page:not([hidden]){display:block!important;width:100%;height:auto!important;min-height:calc(100dvh - 160px)!important;overflow:visible!important;padding:8px!important}
+  .scope-bar{width:100%;height:38px!important;margin:0 0 8px!important;padding:4px 7px;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap}
+  .scope-bar>*{flex:0 0 auto}.scope-note{margin-inline-start:0}
+  :is(.kpi-strip,.drone-kpi-strip,.robot-kpi-strip,.maritime-kpi-strip,.mobility-kpi-strip,.ai-kpi-strip,.incident-kpi-strip,.twin-kpi-strip,.analytics-kpis,.security-kpis,.final-kpis,.live-map-kpi-strip,.fleet-kpi-strip){width:calc(100% + 8px);height:auto!important;display:grid!important;grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:minmax(150px,42vw);gap:7px!important;overflow-x:auto;overflow-y:hidden;padding:0 8px 9px 0!important;scroll-snap-type:x proximity}
+  :is(.kpi-card,.drone-kpi-card,.robot-kpi,.maritime-kpi,.mobility-kpi,.ai-kpi,.incident-kpi,.twin-kpi,.a-kpi,.s-kpi,.f-kpi,.live-map-kpi-strip>button,.fleet-kpi-strip>button){min-height:76px;scroll-snap-align:start}
+  :is(.operations-grid,.drone-workspace,.robotics-workspace,.maritime-workspace,.mobility-workspace,.ai-workspace,.incident-workspace,.twin-workspace,.live-map-workspace,.fleet-workspace,.analytics-workspace,.security-workspace,.missions-workspace,.reports-workspace,.settings-workspace){display:block!important;width:100%;height:auto!important;min-height:0!important;padding:0 0 6px!important}
+  :is(.left-column,.right-column,.drone-center-stage,.drone-right-rail,.robot-center-stage,.robot-left-rail,.robot-right-rail,.maritime-center-stage,.maritime-left-rail,.maritime-right-rail,.mobility-center-stage,.mobility-left-rail,.mobility-right-rail,.ai-center-stage,.ai-left-rail,.ai-right-rail,.incident-center-stage,.incident-left-rail,.incident-right-rail,.twin-center-stage,.twin-left-rail,.twin-right-rail,.live-map-center-stage,.fleet-center-stage,.analytics-center-stage,.security-center-stage,.missions-left,.missions-center,.missions-right,.reports-left,.reports-center,.reports-right,.settings-left,.settings-center,.settings-right,.live-map-left-rail,.live-map-right-rail,.fleet-left-rail,.fleet-right-rail,.analytics-left-rail,.analytics-right-rail,.security-left-rail,.security-right-rail){display:block!important;width:100%;height:auto!important;min-height:0!important}
+  :is(.drone-command-row,.robotics-command-row,.maritime-command-row,.mobility-command-row,.ai-command-row,.incident-command-row,.twin-command-row,.live-map-bottom-row,.fleet-primary-row,.fleet-bottom-row,.analytics-center-row,.security-center-row,.analytics-lower,.security-lower,.mission-lower,.report-lower,.settings-lower){display:grid!important;grid-template-columns:1fr!important;height:auto!important;gap:8px!important}
+  .module-page .panel{width:100%;height:auto!important;min-height:220px!important;margin-bottom:8px;overflow:hidden}
+  .module-page :is([class$="-body"],[class$="-list"],[class$="-grid"],[class$="-menu"],[class$="-queue"],[class$="-register"]){height:auto!important;max-height:none}
+  .module-page :is(.incident-list,.ai-alert-list,.drone-fleet-list,.robot-fleet-list,.maritime-fleet-list,.mobility-fleet-list,.ai-model-list,.incident-queue,.twin-object-list,.live-map-layer-matrix,.live-sector-list,.live-coverage-list,.live-event-list,.fleet-register,.mission-list,.report-list,.settings-menu,.final-list,.settings-audit-list){max-height:420px;overflow:auto}
+  :is(.drone-map-mount,.robot-map-mount,.maritime-map-mount,.mobility-map-mount,.ai-map-mount,.incident-map-mount,.twin-map-mount,.live-map-mount,.fleet-map-mount,.mission-map-mount){height:min(64dvh,680px)!important;min-height:440px!important;margin-bottom:8px}
+  :is(.drone-map-mount,.robot-map-mount,.maritime-map-mount,.mobility-map-mount,.ai-map-mount,.incident-map-mount,.twin-map-mount,.live-map-mount,.fleet-map-mount,.mission-map-mount)>.map-panel{height:100%!important;min-height:440px!important;margin:0}
+  .dashboard-main .map-panel{height:min(64dvh,680px)!important;min-height:440px!important}
+  .map-panel{grid-template-rows:52px minmax(0,1fr)}.map-heading{grid-template-columns:minmax(0,1fr) auto}.map-search{display:none}.map-viewport{min-height:0}
+  .analytics-strip{height:auto!important;display:grid!important;grid-template-columns:1fr!important;gap:8px!important}.analytics-card{min-height:180px}
+  .report-cover{grid-template-columns:1fr 150px}.report-metrics{grid-template-columns:repeat(2,1fr)}
+  .status-footer{position:fixed;left:0;right:0;bottom:0;z-index:90;height:calc(var(--footer) + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr!important;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -5px 18px rgba(0,0,0,.22)}
+  .status-footer>div:first-child,.footer-search{display:none}.scenario-controls{justify-content:center;min-width:0}.scenario-controls>span{max-width:35vw}
+  .role-drawer{width:min(100vw,440px)}
+  .modal-root{padding:0}.modal-card,.modal-card.presentation{width:min(96vw,760px);max-height:92dvh}
+  .toast-region{left:10px;right:10px;bottom:calc(var(--footer) + 10px);width:auto}
+}
+
+@media(max-width:680px){
+  :root{--acc-micro:10px;--acc-small:11px;--acc-body:12px;--acc-heading:14px;--acc-title:16px;--acc-value:20px}
+  .topbar{padding:7px 8px}.brand-lockup{gap:8px}.brand-logos{gap:6px;padding-inline-end:7px}.brand-logos img{width:38px;max-height:29px}.brand-logos .csc-logo{width:36px}.brand-logos span{height:22px}.brand-copy h1{font-size:15px;line-height:1.12}.brand-copy p{display:none}
+  .top-actions{grid-template-columns:40px 46px 48px 40px minmax(120px,1fr)}.demo-chip{justify-content:center;padding:0}.demo-chip span:last-child{display:none}.user-button{grid-template-columns:31px minmax(0,1fr) 12px;padding:4px 6px}.user-avatar{width:30px;height:30px}.user-copy b,.user-copy small{font-size:10px}
+  .module-nav{grid-auto-columns:84px}.module-nav button{min-width:84px;font-size:9.5px}.module-nav button svg{width:16px;height:16px}
+  .module-page:not([hidden]){padding:7px!important}
+  :is(.kpi-strip,.drone-kpi-strip,.robot-kpi-strip,.maritime-kpi-strip,.mobility-kpi-strip,.ai-kpi-strip,.incident-kpi-strip,.twin-kpi-strip,.analytics-kpis,.security-kpis,.final-kpis,.live-map-kpi-strip,.fleet-kpi-strip){grid-auto-columns:minmax(145px,72vw)}
+  .module-page .panel{min-height:210px!important}.panel-heading,.section-minihead,.final-head{padding-inline:8px}
+  .module-page :is(input:not([type="range"]),select,textarea){min-height:42px}.module-page :is([class$="-list"],[class$="-menu"],[class$="-queue"],[class$="-register"],[class$="-actions"],[class$="-tools"])>button{min-height:40px}
+  :is(.drone-map-mount,.robot-map-mount,.maritime-map-mount,.mobility-map-mount,.ai-map-mount,.incident-map-mount,.twin-map-mount,.live-map-mount,.fleet-map-mount,.mission-map-mount),.dashboard-main .map-panel{height:62dvh!important;min-height:390px!important}
+  :is(.drone-map-mount,.robot-map-mount,.maritime-map-mount,.mobility-map-mount,.ai-map-mount,.incident-map-mount,.twin-map-mount,.live-map-mount,.fleet-map-mount,.mission-map-mount)>.map-panel{min-height:390px!important}
+  .map-panel{grid-template-rows:48px minmax(0,1fr)}.map-heading{padding:5px 6px}.map-title{gap:5px}.map-title .eyebrow,.map-engine-badge{display:none!important}.map-modes button{padding:0 6px!important;min-width:38px}.map-modes button:nth-child(2),.map-modes button:nth-child(3){display:none}
+  .map-place-presets,.map-gesture-hint,.domain-feed-rail,.map-camera-readout{display:none!important}.map-layer-panel{left:50px;right:8px;width:auto}.map-controls button,.expand-map{width:38px;height:38px}.map-camera-controls{transform:scale(.94);transform-origin:right bottom}.map-fullscreen-button span{display:none}
+  .mission-map-intel,.drone-map-intel,.robot-map-intel,.maritime-map-intel,.mobility-map-intel,.ai-map-intel,.incident-map-intel,.twin-map-intel,.live-map-status{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:auto!important;left:48px!important;right:8px!important}.mission-map-intel button:nth-child(n+3),.drone-map-intel button:nth-child(n+3),.robot-map-intel button:nth-child(n+3),.maritime-map-intel button:nth-child(n+3),.mobility-map-intel button:nth-child(n+3),.ai-map-intel button:nth-child(n+3),.incident-map-intel button:nth-child(n+3),.twin-map-intel button:nth-child(n+3),.live-map-status>span:nth-child(n+3){display:none}
+  .report-cover{grid-template-columns:1fr}.report-cover img{height:135px;order:-1}.report-cover h1{font-size:18px}.report-metrics{grid-template-columns:1fr 1fr}.lineage-flow{overflow-x:auto;justify-content:flex-start}.lineage-flow button{min-width:120px}
+  .mission-facts,.case-fields,.settings-health-body,.analytics-modal-grid,.security-modal-grid,.final-modal-grid,.presentation-guide-notes{grid-template-columns:1fr!important}.setting-row{grid-template-columns:1fr!important}.setting-row :is(select,input){width:100%}.setting-toggle{justify-self:start}
+  :is(.detail-grid,.robot-evidence,.robot-ai-modal,.maritime-evidence,.maritime-classify,.port-dossier,.collision-solution,.mobility-evidence,.mobility-analysis,.mobility-safety-modal,.mobility-hub-register,.traffic-orchestration,.ai-inspection-layout,.ai-governance,.twin-sensor-diagnostic,.twin-scenario-lab,.twin-district-modal,.fleet-health-modal,.live-track-modal,.live-correlation-modal,.evidence-workbench,.mission-command-workbench,.incident-evidence-wall,.incident-dossier){grid-template-columns:1fr!important}
+  :is(.robot-ai-modal>img,.maritime-classify>img,.port-dossier img,.ai-scan-image,.mobility-analysis figure){height:min(52dvh,420px)!important}.maritime-evidence figure,.robot-evidence figure{min-height:260px}.ai-governance aside{grid-column:auto}.scenario-comparison{grid-template-columns:1fr!important}.scenario-comparison>i{transform:rotate(90deg);justify-self:center}.scenario-cascade{grid-template-columns:1fr 1fr}.scenario-cascade h3{grid-column:1/-1}
+  :is(.permission-table,.modal-table,.mission-plan-table,.report-history-table,.settings-access-table){min-width:650px}.modal-body{overflow-x:auto}
+  .status-footer{height:52px}.scenario-controls>span{display:none}.scenario-controls button{min-height:38px}.scenario-controls button span{font-size:10px}
+  .role-drawer{width:100vw}.drawer-heading{padding-top:max(12px,env(safe-area-inset-top))}
+  .modal-card,.modal-card.presentation{width:100vw;height:100dvh;max-height:none;border-radius:0}.modal-body{max-height:calc(100dvh - 110px);overflow:auto}.presentation-stop-list{grid-template-columns:1fr}
+}
+
+@media(max-width:420px){
+  .brand-copy h1{font-size:14px}.top-actions{grid-template-columns:38px 43px 45px 38px minmax(105px,1fr);gap:4px}.notification-button b{right:-1px}.user-copy small{display:none}
+  .scope-tag{padding-inline:6px}.scope-note{display:none}
+  .map-title .uae-flag{display:none}.map-title h2{font-size:11px!important}.map-modes button{font-size:9px!important}
+  .module-page .panel{border-radius:6px}.report-metrics{grid-template-columns:1fr}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  button,.panel,.kpi-card,.analytics-card,.a-kpi,.s-kpi,.f-kpi,.search-result,.setting-row,.report-insights article{transition:none!important}
+}
